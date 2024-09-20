@@ -23,6 +23,7 @@ namespace ComplianceSoftwareWebApi.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
+            dto.Role = Roles.Owner;
             var user = await _authService.RegisterAsync(dto);
             return Ok(user);
         }
