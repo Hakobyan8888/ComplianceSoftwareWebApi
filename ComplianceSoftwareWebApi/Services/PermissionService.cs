@@ -16,6 +16,7 @@ namespace ComplianceSoftwareWebApi.Services
         public PermissionService(ApplicationDbContext context, IUserService userService, IUnitOfWork unitOfWork)
         {
             _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task GrantPermissionAsync(GrantRemovePermissionDto dto)
