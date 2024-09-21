@@ -33,17 +33,17 @@ namespace ComplianceSoftwareWebApi.Services
                 UserName = registerDto.UserName,
                 Email = registerDto.Email,
                 Role = registerDto.Role,
-                CompanyId = registerDto.CompanyId,
-                PasswordHash = _passwordHasher.HashPassword(null, registerDto.Password)
+                PasswordHash = _passwordHasher.HashPassword(null, registerDto.Password),
+                CompanyId = registerDto.CompanyId
             };
 
-            await _unitOfWork.Users.AddAsync(user);
-            await _unitOfWork.CompleteAsync();
+            //await _unitOfWork.Users.AddAsync(user);
+            //await _unitOfWork.CompleteAsync();
 
             return user;
         }
 
-        public async Task<string> LoginAsync(LoginDto loginDto)
+        public async Task<string> LoginAsync(LoginDto loginDto, List<string> roles)
         {
             var user = await _unitOfWork.Users.GetByEmailAsync(loginDto.Email);
             if (user == null || _passwordHasher.VerifyHashedPassword(null, user.PasswordHash, loginDto.Password) != PasswordVerificationResult.Success)
@@ -51,13 +51,14 @@ namespace ComplianceSoftwareWebApi.Services
                 throw new UnauthorizedAccessException("Invalid email or password.");
             }
 
-            return _jwtTokenGenerator.GenerateToken(user);
+            return _jwtTokenGenerator.GenerateToken(user, roles);
         }
 
         public async Task AddUserToCompanyAsync(RegisterDto dto)
         {
             // Check if the user already exists by email
             var existingUser = await GetUserByEmailAsync(dto.Email);
+
             if (existingUser != null)
             {
                 throw new Exception("User already exists.");

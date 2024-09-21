@@ -9,14 +9,14 @@ namespace ComplianceSoftwareWebApi.Repositories
     {
         public UserPermissionRepository(ApplicationDbContext context) : base(context) { }
 
-        public async Task<bool> UserHasPermissionAsync(string userId, Permission permission, int companyId)
+        public async Task<bool> UserHasPermissionAsync(string userId, Permission permission)
         {
             if (permission == null)
             {
                 return false;
             }
             return await _context.UserPermissions
-                .AnyAsync(up => up.UserId == userId && up.Permission == permission && up.User.CompanyId == companyId);
+                .AnyAsync(up => up.UserId == userId && up.Permission == permission);
         }
 
         public async Task<UserPermission> GetUserPermission(string userId, int permissionId)

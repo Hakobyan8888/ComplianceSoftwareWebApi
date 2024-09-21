@@ -1,8 +1,11 @@
-﻿namespace ComplianceSoftwareWebApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ComplianceSoftwareWebApi.Models
 {
     public class Permission
     {
-        public int PermissionId { get; set; }
+        [Key]
+        public int Id { get; set; }
         public PermissionTypes Name { get; set; } // e.g., "Upload Document", "View Documents", "Manage Compliance"
     }
 

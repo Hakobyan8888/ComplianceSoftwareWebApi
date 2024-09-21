@@ -22,11 +22,11 @@ namespace ComplianceSoftwareWebApi.Services
         public async Task GrantPermissionAsync(GrantRemovePermissionDto dto)
         {
             var user = await _unitOfWork.Users.GetByIdAsync(dto.UserId);
-            var permission = await _unitOfWork.Permissions.GetByIdAsync(dto.PermissionId);
+            var permission = await _unitOfWork.Permissions.GetPermissionByPermissionType((PermissionTypes)dto.PermissionId);
 
             if (user != null && permission != null)
             {
-                var userPermission = new UserPermission { UserId = user.Id, PermissionId = permission.PermissionId };
+                var userPermission = new UserPermission { UserId = user.Id, PermissionId = permission.Id };
                 await _unitOfWork.UserPermissions.AddAsync(userPermission);
                 await _unitOfWork.CompleteAsync();
             }
@@ -34,16 +34,16 @@ namespace ComplianceSoftwareWebApi.Services
 
         public async Task RemovePermissionAsync(GrantRemovePermissionDto dto)
         {
-            var userPermission = await _unitOfWork.UserPermissions.GetUserPermission(dto.UserId, dto.PermissionId);
+            var permission = await _unitOfWork.Permissions.GetPermissionByPermissionType((PermissionTypes)dto.PermissionId);
+            var userPermission = await _unitOfWork.UserPermissions.GetUserPermission(dto.UserId, permission.Id);
             if (userPermission != null)
             {
-                await _unitOfWork.UserPermissions.DeleteAsync(dto.PermissionId);
+                await _unitOfWork.UserPermissions.DeleteAsync(userPermission.Id);
                 await _unitOfWork.CompleteAsync();
             }
         }
-        public async Task<bool> HasPermissionAsync(ClaimsPrincipal user, PermissionTypes permissionTypes)
+        public async Task<bool> HasPermissionAsync(string userId, PermissionTypes permissionTypes)
         {
-            var userId = _userService.GetUserIdFromClaims(user);
             return await _userService.HasPermissionAsync(userId, permissionTypes);
         }
     }

@@ -8,6 +8,7 @@ namespace ComplianceSoftwareWebApi.UnitOfWork
         IDocumentRepository Documents { get; }
         IPermissionRepository Permissions { get; }
         IUserPermissionRepository UserPermissions { get; }
+        ICompanyRepository Companies { get; }
         Task<int> CompleteAsync();
     }
 

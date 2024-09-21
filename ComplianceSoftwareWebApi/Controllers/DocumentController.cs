@@ -12,11 +12,14 @@ namespace ComplianceSoftwareWebApi.Controllers
     {
         private readonly IDocumentService _documentService;
         private readonly IPermissionService _permissionService;
+        private readonly IUserService _userService;
 
-        public DocumentController(IDocumentService documentService, IPermissionService permissionService)
+
+        public DocumentController(IDocumentService documentService, IPermissionService permissionService, IUserService userService)
         {
             _documentService = documentService;
             _permissionService = permissionService;
+            _userService = userService;
         }
 
         // Get all documents for a company
@@ -24,7 +27,8 @@ namespace ComplianceSoftwareWebApi.Controllers
         [Authorize(Roles = "Owner,Manager,Employee")]
         public async Task<IActionResult> GetCompanyDocuments(int companyId)
         {
-            if (!await _permissionService.HasPermissionAsync(User, PermissionTypes.ViewDocuments))
+            var userId = _userService.GetUserIdFromClaims(User);
+            if (!await _permissionService.HasPermissionAsync(userId, PermissionTypes.ViewDocuments))
             {
                 return Forbid("You do not have permission to add documents.");
             }
@@ -37,12 +41,13 @@ namespace ComplianceSoftwareWebApi.Controllers
         [Authorize(Roles = "Owner,Manager,Employee")]
         public async Task<IActionResult> AddDocument(DocumentDto dto)
         {
-            if (!await _permissionService.HasPermissionAsync(User, PermissionTypes.AddDocument))
+            var userId = _userService.GetUserIdFromClaims(User);
+            if (!await _permissionService.HasPermissionAsync(userId, PermissionTypes.AddDocument))
             {
                 return Forbid("You do not have permission to add documents.");
             }
 
-            var document = await _documentService.AddDocumentAsync(dto);
+            var document = await _documentService.AddDocumentAsync(dto, userId);
             return Ok(document);
         }
 
@@ -51,7 +56,8 @@ namespace ComplianceSoftwareWebApi.Controllers
         [Authorize(Roles = "Owner,Manager,Employee")]
         public async Task<IActionResult> UpdateDocument(int documentId, DocumentDto dto)
         {
-            if (!await _permissionService.HasPermissionAsync(User, PermissionTypes.UpdateDocument))
+            var userId = _userService.GetUserIdFromClaims(User);
+            if (!await _permissionService.HasPermissionAsync(userId, PermissionTypes.UpdateDocument))
             {
                 return Forbid("You do not have permission to update documents.");
             }
@@ -65,7 +71,8 @@ namespace ComplianceSoftwareWebApi.Controllers
         [Authorize(Roles = "Owner,Manager,Employee")]
         public async Task<IActionResult> RemoveDocument(int documentId)
         {
-            if (!await _permissionService.HasPermissionAsync(User, PermissionTypes.RemoveDocument))
+            var userId = _userService.GetUserIdFromClaims(User);
+            if (!await _permissionService.HasPermissionAsync(userId, PermissionTypes.RemoveDocument))
             {
                 return Forbid("You do not have permission to remove documents.");
             }

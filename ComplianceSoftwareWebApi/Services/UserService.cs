@@ -1,6 +1,7 @@
 ﻿using ComplianceSoftwareWebApi.Data;
 using ComplianceSoftwareWebApi.Models;
 using ComplianceSoftwareWebApi.Services.Interfaces;
+using ComplianceSoftwareWebApi.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -8,22 +9,20 @@ namespace ComplianceSoftwareWebApi.Services
 {
     public class UserService : IUserService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _unitOfWork.Users.GetByEmailAsync(email);
         }
-
-        public async Task CreateUserAsync(User user)
+        public async Task<User> GetUserById(string id)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            return await _unitOfWork.Users.GetByIdAsync(id);
         }
 
         public string GetUserIdFromClaims(ClaimsPrincipal user)
@@ -34,18 +33,15 @@ namespace ComplianceSoftwareWebApi.Services
 
         public async Task<bool> HasPermissionAsync(string userId, PermissionTypes permissionTypes)
         {
-            var permission = await _context.Permissions.FirstOrDefaultAsync(x => x.Name == permissionTypes);
+            var permission = await _unitOfWork.Permissions.GetPermissionByPermissionType(permissionTypes);
             if (permission == null)
             {
                 return false;
             }
             // Assuming you have a way to check permissions in your database
-            var userPermissions = await _context.UserPermissions
-                .Where(up => up.UserId == userId)
-                .Select(up => up.Permission)
-                .ToListAsync();
+            var permissionAvailable = await _unitOfWork.UserPermissions.UserHasPermissionAsync(userId, permission);
 
-            return userPermissions.Contains(permission);
+            return permissionAvailable;
         }
     }
 

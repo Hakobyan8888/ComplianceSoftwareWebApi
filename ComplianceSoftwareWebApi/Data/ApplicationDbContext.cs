@@ -18,17 +18,26 @@ namespace ComplianceSoftwareWebApi.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserPermission>()
-                .HasKey(up => new { up.UserId, up.PermissionId });
-
-            modelBuilder.Entity<UserPermission>()
-                .HasOne(up => up.User)
-                .WithMany(u => u.UserPermissions)
-                .HasForeignKey(up => up.UserId);
+            .HasOne(up => up.User)
+            .WithMany(u => u.UserPermissions)
+            .HasForeignKey(up => up.UserId);
 
             modelBuilder.Entity<UserPermission>()
                 .HasOne(up => up.Permission)
-                .WithMany()
+                .WithMany() // Assuming Permission does not have a collection of UserPermissions
                 .HasForeignKey(up => up.PermissionId);
+
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.Documents)
+                .WithOne(u => u.Company)
+                .HasForeignKey(p => p.CompanyId)
+                .HasPrincipalKey(c => c.Id);
+
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.Company)
+            .WithMany(c => c.Users)
+            .HasForeignKey(u => u.CompanyId)
+            .HasPrincipalKey(c => c.Id);
 
             base.OnModelCreating(modelBuilder);
         }

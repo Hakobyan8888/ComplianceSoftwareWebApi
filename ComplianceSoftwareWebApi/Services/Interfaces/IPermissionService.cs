@@ -8,7 +8,7 @@ namespace ComplianceSoftwareWebApi.Services.Interfaces
     {
         Task GrantPermissionAsync(GrantRemovePermissionDto dto);
         Task RemovePermissionAsync(GrantRemovePermissionDto dto);
-        Task<bool> HasPermissionAsync(ClaimsPrincipal user, PermissionTypes permissionTypes);
+        Task<bool> HasPermissionAsync(string userId, PermissionTypes permissionTypes);
     }
 
 }

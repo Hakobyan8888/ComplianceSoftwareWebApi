@@ -13,6 +13,8 @@ namespace ComplianceSoftwareWebApi.UnitOfWork
         public IPermissionRepository Permissions { get; private set; }
         public IUserPermissionRepository UserPermissions { get; private set; }
 
+        public ICompanyRepository Companies { get; private set; }
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -20,6 +22,7 @@ namespace ComplianceSoftwareWebApi.UnitOfWork
             Documents = new DocumentRepository(context);
             Permissions = new PermissionRepository(context);
             UserPermissions = new UserPermissionRepository(context);
+            Companies = new CompanyRepository(context);
         }
 
         public async Task<int> CompleteAsync()

@@ -9,6 +9,12 @@ namespace ComplianceSoftwareWebApi.Repositories
     {
         public PermissionRepository(ApplicationDbContext context) : base(context) { }
 
+        public async Task<Permission> GetPermissionByPermissionType(PermissionTypes permissionTypes)
+        {
+            var permission = await _context.Permissions.FirstOrDefaultAsync(x => x.Name == permissionTypes);
+            return permission;
+        }
+
         public async Task<bool> UserHasPermissionAsync(string userId, PermissionTypes permissionTypes, int companyId)
         {
             var permission = await _context.Permissions.FirstOrDefaultAsync(x => x.Name == permissionTypes);

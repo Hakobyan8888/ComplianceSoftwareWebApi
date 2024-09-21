@@ -26,11 +26,12 @@ namespace ComplianceSoftwareWebApi.Services
             return (await _uniUnitOfWork.Documents.GetDocumentsByCompanyIdAsync(companyId)).ToList();
         }
 
-        public async Task<Document> AddDocumentAsync(DocumentDto dto)
+        public async Task<Document> AddDocumentAsync(DocumentDto dto, string userId)
         {
+            var user = await _uniUnitOfWork.Users.GetByIdAsync(userId);
             var document = new Document
             {
-                CompanyId = dto.CompanyId,
+                CompanyId = user.Company.Id,
                 Title = dto.Title,
                 Content = dto.Content,
                 FilePath = dto.FilePath,
@@ -38,6 +39,7 @@ namespace ComplianceSoftwareWebApi.Services
             };
 
             await _uniUnitOfWork.Documents.AddAsync(document);
+            await _uniUnitOfWork.CompleteAsync();
             return document;
         }
 
@@ -52,6 +54,7 @@ namespace ComplianceSoftwareWebApi.Services
             document.UpdatedAt = DateTime.UtcNow;
 
             await _uniUnitOfWork.Documents.UpdateAsync(document);
+            await _uniUnitOfWork.CompleteAsync();
             return document;
         }
 
@@ -61,6 +64,7 @@ namespace ComplianceSoftwareWebApi.Services
             if (document == null) throw new Exception("Document not found");
 
             await _uniUnitOfWork.Documents.DeleteAsync(documentId);
+            await _uniUnitOfWork.CompleteAsync();
         }
     }
 }
