@@ -63,7 +63,11 @@ namespace ComplianceSoftwareWebApi.Controllers
                 return Forbid("You do not have permission to add users.");
             }
             var baseUser = await _userService.GetUserById(userId);
-            dto.CompanyId = baseUser.CompanyId;
+            if (baseUser.CompanyId == null)
+            {
+                return Forbid("Please register Company before adding users");
+            }
+            dto.CompanyId = Convert.ToInt32(baseUser.CompanyId);
 
             // If the user has permission, allow them to add a new user
             var user = await _authService.RegisterAsync(dto);

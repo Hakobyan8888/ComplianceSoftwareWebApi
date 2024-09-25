@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComplianceSoftwareWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240920050409_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240924225455_undochanges")]
+    partial class undochanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace ComplianceSoftwareWebApi.Migrations
 
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Company", b =>
                 {
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -45,7 +45,7 @@ namespace ComplianceSoftwareWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CompanyId");
+                    b.HasKey("Id");
 
                     b.ToTable("Companies");
                 });
@@ -81,52 +81,90 @@ namespace ComplianceSoftwareWebApi.Migrations
 
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Document", b =>
                 {
-                    b.Property<int>("DocumentId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentId"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Content")
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ContentType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FilePath")
+                    b.Property<string>("FileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("UploadedByEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DocumentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Documents");
                 });
 
-            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Permission", b =>
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.DocumentVersion", b =>
                 {
-                    b.Property<int>("PermissionId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PermissionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<Guid?>("DocumentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UploadedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VersionNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
+
+                    b.ToTable("DocumentVersion");
+                });
+
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
-                    b.HasKey("PermissionId");
+                    b.HasKey("Id");
 
                     b.ToTable("Permissions");
                 });
@@ -206,15 +244,24 @@ namespace ComplianceSoftwareWebApi.Migrations
 
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.UserPermission", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("PermissionId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "PermissionId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PermissionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserPermissions");
                 });
@@ -363,6 +410,13 @@ namespace ComplianceSoftwareWebApi.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.DocumentVersion", b =>
+                {
+                    b.HasOne("ComplianceSoftwareWebApi.Models.Document", null)
+                        .WithMany("Versions")
+                        .HasForeignKey("DocumentId");
+                });
+
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.User", b =>
                 {
                     b.HasOne("ComplianceSoftwareWebApi.Models.Company", "Company")
@@ -447,6 +501,11 @@ namespace ComplianceSoftwareWebApi.Migrations
                     b.Navigation("Documents");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Document", b =>
+                {
+                    b.Navigation("Versions");
                 });
 
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.User", b =>

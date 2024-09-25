@@ -18,7 +18,7 @@ namespace ComplianceSoftwareWebApi.Services
             {
                 Address = registerDto.Address,
                 Name = registerDto.Name,
-                Industry = registerDto.Industry,
+                Industry = registerDto.Industry
             };
 
             var user = await _unitOfWork.Users.GetByIdAsync(userId);
@@ -31,7 +31,6 @@ namespace ComplianceSoftwareWebApi.Services
                 {
                     var userPermission = new UserPermission
                     {
-                        Id = id++,
                         Permission = permission,
                         UserId = userId
                     };
