@@ -1,0 +1,25 @@
+﻿<Card Title="Check Requests">
+    <HeaderContent>
+        <h4 class="chart-header">Check Requests</h4>
+    </HeaderContent>
+    <ChildContent>
+        <div class="status-item">
+            <h3>Pending Payments</h3>
+            <p>@PendingPayments</p>
+        </div>
+        <div class="status-item">
+            <h3>Submitted</h3>
+            <p>@Submitted</p>
+        </div>
+        <div class="status-item">
+            <h3>Received</h3>
+            <p>@Received</p>
+        </div>
+    </ChildContent>
+</Card>
+
+@code {
+    [Parameter] public int PendingPayments { get; set; } = 0;
+    [Parameter] public int Submitted { get; set; } = 28;
+    [Parameter] public int Received { get; set; } = 23;
+}

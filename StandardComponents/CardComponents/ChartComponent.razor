@@ -1,0 +1,70 @@
+﻿<Card>
+    <HeaderContent>
+        <h4 class="chart-header">Filings</h4>
+    </HeaderContent>
+    <ChildContent>
+        <button class="btn-status">+ Add/Remove Filing Statuses</button>
+        <div class="chart-body">
+            <div class="chart-statistics">
+                <h1>@TotalFilings</h1>
+                <p>Filings in process</p>
+
+                <div class="bar-chart">
+                    @foreach (var bar in Bars)
+                    {
+                        <div class="bar" style="height:@bar.Height; background-color:@bar.Color;">
+                            <span class="bar-label">@bar.Label</span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="chart-legend">
+                @foreach (var status in Statuses)
+                {
+                    <div class="status-item">
+                        <span class="status-color" style="background-color:@status.Color;"></span>
+                        <span class="status-label">@status.Label</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </ChildContent>
+</Card>
+
+@code {
+    [Parameter]
+    public string TotalFilings { get; set; } = "50";
+
+    [Parameter]
+    public List<BarData> Bars { get; set; } = new List<BarData>
+    {
+        new BarData { Label = "10", Height = "50px", Color = "#002752" },
+        new BarData { Label = "7", Height = "40px", Color = "#2E4A6F" },
+        new BarData { Label = "12", Height = "70px", Color = "#597C9E" },
+        new BarData { Label = "17", Height = "85px", Color = "#85AEDA" },
+        new BarData { Label = "+10", Height = "90px", Color = "#A8C6F0" }
+    };
+
+    [Parameter]
+    public List<StatusData> Statuses { get; set; } = new List<StatusData>
+    {
+        new StatusData { Label = "Started", Color = "#002752" },
+        new StatusData { Label = "Forms Prepared", Color = "#2E4A6F" },
+        new StatusData { Label = "Pending Check", Color = "#597C9E" },
+        new StatusData { Label = "Pending Shipment", Color = "#85AEDA" },
+        new StatusData { Label = "Pending Activation", Color = "#A8C6F0" }
+    };
+
+    public class BarData
+    {
+        public string Label { get; set; }
+        public string Height { get; set; }
+        public string Color { get; set; }
+    }
+
+    public class StatusData
+    {
+        public string Label { get; set; }
+        public string Color { get; set; }
+    }
+}

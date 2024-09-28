@@ -1,0 +1,15 @@
+﻿/* Dashboard.razor.css */
+.dashboard-container {
+    background-color: transparent;
+    padding: 20px;
+}
+
+.dashboard-title {
+    font-size: 24px;
+    color: black;
+}
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+}

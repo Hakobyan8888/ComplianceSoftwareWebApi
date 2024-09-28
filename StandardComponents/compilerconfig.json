@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "CardComponents/Card.razor.css",
+    "inputFile": "CardComponents/Card.razor.scss"
+  },
+  {
+    "outputFile": "CardComponents/ChartComponent.razor.css",
+    "inputFile": "CardComponents/ChartComponent.razor.scss"
+  }
+]

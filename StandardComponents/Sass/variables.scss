@@ -1,0 +1,11 @@
+﻿@mixin button-variables {
+    --stlib-button-primary-bg: var(--button-primary-color, #b8a87f);
+    --stlib-button-secondary-bg: var(--button-secondary-color, #d9e5f6);
+}
+
+@mixin card-variables {
+    --stlib-card-border-color: var(--card-border-color, #b6bac1);
+    --stlib-card-bg-color: var(--card-bg-color, #fdfdfd);
+    --stlib-card-header-bg-color: var(--card-header-bg-color, #eeeeef);
+    --stlib-card-header-text-color: var(--card-header-text-color, #30425d)
+}

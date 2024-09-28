@@ -1,0 +1,97 @@
+﻿@import '../Sass/variables.scss';
+
+$color_2: #666;
+$color_3: #fff;
+$color_4: #000;
+$background-color_1: #fff;
+$background-color_2: transparent;
+
+.bar-chart-container {
+    width: 350px;
+    background-color: $background-color_1;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 20px;
+}
+
+.chart-header {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.btn-status {
+    @include button-variables;
+    font-size: 0.8rem;
+    background-color: var(--stlib-button-secondary-bg);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.chart-body {
+    text-align: center;
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+
+    h1 {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    p {
+        font-size: 0.9rem;
+        color: $color_2;
+    }
+}
+
+.bar-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100px;
+    margin: 20px 0;
+    gap: 0.3rem;
+}
+
+.bar {
+    width: 30px;
+    position: relative;
+    text-align: center;
+    color: $color_3;
+    border-radius: 5px;
+}
+
+.bar-label {
+    position: absolute;
+    bottom: -20px;
+    font-size: 0.8rem;
+    color: $color_4;
+}
+
+.chart-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.status-color {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.status-label {
+    font-size: 0.9rem;
+    color: $color_2;
+}
