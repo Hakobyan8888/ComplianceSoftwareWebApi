@@ -1,40 +1,43 @@
 ﻿@page "/Licenses"
 @using ComplianceSoftwareWebSite.Components.Pages.Auth
+@using Microsoft.AspNetCore.Components.Authorization
 <h3>Licenses</h3>
 
-<AuthorizeComponent>
-    <div class="work-item-list-container">
-        <table class="work-item-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Assigned To</th>
-                    <th>State</th>
-                    <th>Area Path</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in LicenseModels)
-                {
+<AuthorizeView>
+    <Authorized>
+        <div class="work-item-list-container">
+            <table class="work-item-table">
+                <thead>
                     <tr>
-                        <td>@item.Id</td>
-                        <td>
-                            @* <span class="work-item-icon">@item.Icon</span> *@
-                            @item.Title
-                        </td>
-                        <td>
-                            @* <span class="assigned-to-icon"><img src="@item.AssignedToIcon" alt="icon" /></span> *@
-                            @item.UploadedByEmail
-                        </td>
-                        <td>
-                            <span class="state-indicator"></span>
-                            @item.Content
-                        </td>
-                        <td>@item.CreatedDate</td>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Assigned To</th>
+                        <th>State</th>
+                        <th>Area Path</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</AuthorizeComponent>
+                </thead>
+                <tbody>
+                    @foreach (var item in LicenseModels)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>
+                                @* <span class="work-item-icon">@item.Icon</span> *@
+                                @item.Title
+                            </td>
+                            <td>
+                                @* <span class="assigned-to-icon"><img src="@item.AssignedToIcon" alt="icon" /></span> *@
+                                @item.UploadedByEmail
+                            </td>
+                            <td>
+                                <span class="state-indicator"></span>
+                                @item.Content
+                            </td>
+                            <td>@item.CreatedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </Authorized>
+</AuthorizeView>

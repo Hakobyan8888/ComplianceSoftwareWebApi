@@ -1,10 +1,12 @@
 ﻿
+using ComplianceSoftwareWebSite.Services.Interfaces;
+
 namespace ComplianceSoftwareWebSite.Services
 {
     public class CustomHttpHandlerService : DelegatingHandler
     {
-        private readonly TokenService _tokenService;
-        public CustomHttpHandlerService(TokenService tokenService)
+        private readonly ITokenService _tokenService;
+        public CustomHttpHandlerService(ITokenService tokenService)
         {
             _tokenService = tokenService;
         }

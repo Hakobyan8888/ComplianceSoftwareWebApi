@@ -1,4 +1,5 @@
 ﻿using ComplianceSoftwareWebSite.Models.Auth;
+using ComplianceSoftwareWebSite.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Security.Claims;
@@ -8,9 +9,9 @@ namespace ComplianceSoftwareWebSite.Services
 {
     public class AuthStateProviderService : AuthenticationStateProvider
     {
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
 
-        public AuthStateProviderService(TokenService tokenService)
+        public AuthStateProviderService(ITokenService tokenService)
         {
             _tokenService = tokenService;
         }
