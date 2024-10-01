@@ -15,14 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-//builder.Services.AddRazorPages();
-//builder.Services.AddServerSideBlazor();
-builder.Services.AddHttpClient();//sp => new HttpClient { BaseAddress = new Uri("https://localhost:7216/") });
 
-//builder.Services.AddOptions();
-builder.Services.AddHttpContextAccessor(); // Add this for accessing HTTP context
+builder.Services.AddHttpClient();
 
-//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -40,12 +36,10 @@ builder.Services.AddSession(options =>
 
 // Add authorization policies
 builder.Services.AddAuthorization();
-//builder.Services.AddTransient<CustomHttpHandlerService>();
-builder.Services.AddSingleton<TokenService>();
+
+builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProviderService>();
 builder.Services.AddScoped(s => (AuthStateProviderService)s.GetRequiredService<AuthenticationStateProvider>());
-//builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProviderService>();
-
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorizationCore();

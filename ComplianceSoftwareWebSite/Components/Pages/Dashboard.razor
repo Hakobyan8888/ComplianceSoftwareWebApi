@@ -2,7 +2,9 @@
 @using ComplianceSoftwareWebSite.Components.Pages.Auth
 @using Microsoft.AspNetCore.Components.Authorization
 @using StandardComponents.CardComponents
+@* @inject NavigationManager Navigation *@
 @inject Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthenticationStateProvider
+
 <AuthorizeView>
     <Authorized>
         <div class="dashboard-container">
@@ -20,13 +22,13 @@
             </div>
         </div>
     </Authorized>
+   @*  <NotAuthorized>
+        <p>You are not authorized to view this content. Redirecting to login...</p>
+        @code {
+        protected override void OnInitialized()
+        {
+            Navigation.NavigateTo("/login");
+        }
+        }
+    </NotAuthorized> *@
 </AuthorizeView>
-@code {
-    private bool isAuthenticated;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        isAuthenticated = authState.User.Identity.IsAuthenticated;
-    }
-}
