@@ -15,6 +15,11 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Auth
         [Inject]
         public NavigationManager _navigationManager { get; set; }
 
+        protected override void OnInitialized()
+        {
+            HttpContextAccessory.HttpContext.Session.SetString("AuthToken", "");
+            base.OnInitialized();
+        }
 
         private async Task HandleLogin()
         {
