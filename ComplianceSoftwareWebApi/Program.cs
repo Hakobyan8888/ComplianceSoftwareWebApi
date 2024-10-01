@@ -14,6 +14,7 @@ using ComplianceSoftwareWebApi.Repositories;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
+//builder.WebHost.UseUrls("http://localhost:8080", "https://localhost:9090");
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

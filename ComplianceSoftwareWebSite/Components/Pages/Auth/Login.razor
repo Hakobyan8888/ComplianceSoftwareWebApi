@@ -1,0 +1,9 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+@inject IHttpContextAccessor HttpContextAccessory
+
+<EditForm Model="loginModel" OnValidSubmit="HandleLogin" FormName="LoginForm">
+    <InputText @bind-Value=this.loginModel.Email placeholder="Email" />
+    <InputText @bind-Value=this.loginModel.Password placeholder="Password" type="password" />
+    <button type="submit">Login</button>
+</EditForm>

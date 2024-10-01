@@ -1,17 +1,32 @@
 ﻿@page "/dashboard"
+@using ComplianceSoftwareWebSite.Components.Pages.Auth
+@using Microsoft.AspNetCore.Components.Authorization
 @using StandardComponents.CardComponents
+@inject Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthenticationStateProvider
+<AuthorizeView>
+    <Authorized>
+        <div class="dashboard-container">
+            <h1 class="dashboard-title">Company Name Dashboard</h1>
+            <div class="dashboard">
+                <CheckRequestsComponent>
+                    <!-- Chart content -->
+                </CheckRequestsComponent>
+                <ChartComponent>
+                    <!-- Chart content -->
+                </ChartComponent>
+                <CheckRequestsComponent>
+                    <!-- Chart content -->
+                </CheckRequestsComponent>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+@code {
+    private bool isAuthenticated;
 
-<div class="dashboard-container">
-    <h1 class="dashboard-title">Company Name Dashboard</h1>
-    <div class="dashboard">
-        <CheckRequestsComponent>
-            <!-- Chart content -->
-        </CheckRequestsComponent>
-        <ChartComponent>
-            <!-- Chart content -->
-        </ChartComponent>
-        <CheckRequestsComponent>
-            <!-- Chart content -->
-        </CheckRequestsComponent>
-    </div>
-</div>
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        isAuthenticated = authState.User.Identity.IsAuthenticated;
+    }
+}

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplianceSoftwareWebApi", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplianceSoftwareWebSite", "ComplianceSoftwareWebSite\ComplianceSoftwareWebSite.csproj", "{62607377-75C9-49EA-9DB2-F5EF909A55AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandardComponents", "StandardComponents\StandardComponents.csproj", "{0A6981E1-CFF0-426D-B0B5-DCA7774A1C48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StandardComponents", "StandardComponents\StandardComponents.csproj", "{0A6981E1-CFF0-426D-B0B5-DCA7774A1C48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

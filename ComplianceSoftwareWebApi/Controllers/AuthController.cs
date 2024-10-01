@@ -49,6 +49,24 @@ namespace ComplianceSoftwareWebApi.Controllers
             return Ok(new { Token = token });
         }
 
+        [HttpPost("login/cookies")]
+        public async Task<IActionResult> LoginCookies(LoginDto dto)
+        {
+            var a = await _userManager.GetRolesAsync(await _userService.GetUserByEmailAsync(dto.Email));
+            var token = await _authService.LoginAsync(dto, a.ToList());
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true, // Prevents JavaScript access
+                Secure = true, // Ensure this is set to true in production with HTTPS
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddHours(1)
+            };
+
+            // Set the JWT token in an HTTP-only cookie
+            Response.Cookies.Append("AuthToken", token, cookieOptions);
+            return Ok();
+        }
+
         // Add a user (accessible by Owners and users with the right permission)
         [HttpPost("add-user")]
         [Authorize(Roles = "Owner,Manager")]

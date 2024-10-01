@@ -1,0 +1,32 @@
+﻿@* LicenseComponent.razor *@
+<div class="license-item">
+    <div class="license-item-id">
+        @LicenseItemId
+    </div>
+    <div class="license-item-title">
+        @LicenseItemTitle
+    </div>
+    <div class="license-item-assigned-to">
+        @LicenseItemAssignedTo
+    </div>
+    <div class="license-item-state">
+        <span class="state-indicator"></span>
+        @LicenseItemState
+    </div>
+    <div class="license-item-area-path">
+        @LicenseItemAreaPath
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment LicenseItemId { get; set; }
+    [Parameter]
+    public RenderFragment LicenseItemTitle { get; set; }
+    [Parameter]
+    public RenderFragment LicenseItemAssignedTo { get; set; }
+    [Parameter]
+    public RenderFragment LicenseItemState { get; set; }
+    [Parameter]
+    public RenderFragment LicenseItemAreaPath { get; set; }
+}
