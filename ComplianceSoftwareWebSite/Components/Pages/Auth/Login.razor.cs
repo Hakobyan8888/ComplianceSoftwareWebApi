@@ -14,11 +14,17 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Auth
         public HttpClient _httpClient { get; set; }
         [Inject]
         public NavigationManager _navigationManager { get; set; }
-
+        private static bool _isFirstTime = true;
         protected override void OnInitialized()
         {
-            HttpContextAccessory.HttpContext.Session.SetString("AuthToken", "");
+            if (!_isFirstTime)
+            {
+                base.OnInitialized();
+                return;
+            }
+            _stateProviderService.SetDummyAuth(string.Empty);
             base.OnInitialized();
+            _isFirstTime = false;
         }
 
         private async Task HandleLogin()
@@ -29,7 +35,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Auth
                 var result = await response.Content.ReadFromJsonAsync<LoginResult>();
                 _stateProviderService.MarkUserAsAuthenticated(result.Token);
                 //HttpContextAccessory.HttpContext.Session.SetString("AuthToken2", result.Token);
-                _navigationManager.NavigateTo("/");
+                _navigationManager.NavigateTo("/dashboard");
             }
             else
             {

@@ -11,12 +11,13 @@ namespace ComplianceSoftwareWebSite.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public void SetToken(string token)
+        public async Task SetToken(string token)
         {
             var context = _httpContextAccessor.HttpContext;
             if (context != null)
             {
                 context.Session.SetString("AuthToken", token);
+                await context.Session.CommitAsync();
             }
         }
 

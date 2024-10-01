@@ -16,6 +16,11 @@ namespace ComplianceSoftwareWebSite.Services
             _tokenService = tokenService;
         }
 
+        public void SetDummyAuth(string token)
+        {
+            _tokenService.SetToken(token);
+        }
+
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var token = _tokenService.GetToken();
@@ -24,9 +29,9 @@ namespace ComplianceSoftwareWebSite.Services
             return await Task.FromResult(new AuthenticationState(user));
         }
 
-        public void MarkUserAsAuthenticated(string token)
+        public async Task MarkUserAsAuthenticated(string token)
         {
-            _tokenService.SetToken(token);
+            await _tokenService.SetToken(token);
             var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(token), "Bearer"));
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }

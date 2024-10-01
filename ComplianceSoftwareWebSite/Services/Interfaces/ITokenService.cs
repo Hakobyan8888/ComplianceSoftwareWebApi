@@ -2,7 +2,7 @@
 {
     public interface ITokenService
     {
-        void SetToken(string token);
+        Task SetToken(string token);
         string GetToken();
         void ClearToken();
     }

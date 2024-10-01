@@ -7,12 +7,7 @@
     </Authorized>
     <NotAuthorized>
         <p>You are not authorized to view this content. Redirecting to login...</p>
-        @code {
-            protected override void OnInitialized()
-            {
-                Navigation.NavigateTo("/login");
-            }
-        }
+        <LoginRedirect />
     </NotAuthorized>
 </AuthorizeView>
 

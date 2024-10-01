@@ -2,33 +2,22 @@
 @using ComplianceSoftwareWebSite.Components.Pages.Auth
 @using Microsoft.AspNetCore.Components.Authorization
 @using StandardComponents.CardComponents
-@* @inject NavigationManager Navigation *@
+@inject NavigationManager Navigation
 @inject Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthenticationStateProvider
 
-<AuthorizeView>
-    <Authorized>
-        <div class="dashboard-container">
-            <h1 class="dashboard-title">Company Name Dashboard</h1>
-            <div class="dashboard">
-                <CheckRequestsComponent>
-                    <!-- Chart content -->
-                </CheckRequestsComponent>
-                <ChartComponent>
-                    <!-- Chart content -->
-                </ChartComponent>
-                <CheckRequestsComponent>
-                    <!-- Chart content -->
-                </CheckRequestsComponent>
-            </div>
+<AuthorizeComponent>
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Company Name Dashboard</h1>
+        <div class="dashboard">
+            <CheckRequestsComponent>
+                <!-- Chart content -->
+            </CheckRequestsComponent>
+            <ChartComponent>
+                <!-- Chart content -->
+            </ChartComponent>
+            <CheckRequestsComponent>
+                <!-- Chart content -->
+            </CheckRequestsComponent>
         </div>
-    </Authorized>
-   @*  <NotAuthorized>
-        <p>You are not authorized to view this content. Redirecting to login...</p>
-        @code {
-        protected override void OnInitialized()
-        {
-            Navigation.NavigateTo("/login");
-        }
-        }
-    </NotAuthorized> *@
-</AuthorizeView>
+    </div>
+</AuthorizeComponent>
