@@ -15,37 +15,10 @@
             @foreach (var option in Options)
             {
                 if (option == null) continue;
-                <option value="@option">@(option)</option>
+                <option value="@option.ToString()">@(option.ToString())</option>
             }
         }
     </InputSelect>
-    @* <ValidationMessage For="@(() => Value)" class="validation-message azure-devops-validation" /> *@
+    <ValidationMessage For="@(() => Value)" class="validation-message azure-devops-validation" />
 </div>
 
-@code {
-    [Parameter] public string Id { get; set; }
-    [Parameter] public string Label { get; set; }
-    private TItem _value;
-    [Parameter]
-    public TItem Value
-    {
-        get => _value;
-        set
-        {
-            _value = value;
-            ValueChanged.InvokeAsync(_value);
-        }
-    }
-    [Parameter]
-    public EventCallback<TItem> ValueChanged { get; set; }
-    [Parameter]
-    public List<TItem> Options { get; set; }
-    [Parameter]
-    public string PropertyName { get; set; }
-
-    private async Task OnValueChanged(object e)
-    {
-        Value = (TItem)e;
-        await ValueChanged.InvokeAsync(Value);
-    }
-}

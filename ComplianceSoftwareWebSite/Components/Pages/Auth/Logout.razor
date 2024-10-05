@@ -1,0 +1,10 @@
+﻿@page "/logout"
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<LoginRedirect />
+@code {
+    protected override void OnInitialized()
+    {
+        HttpContextAccessor?.HttpContext?.Session.Clear();
+
+    }
+}

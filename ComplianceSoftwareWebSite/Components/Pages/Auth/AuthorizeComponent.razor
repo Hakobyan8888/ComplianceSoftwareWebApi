@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization;
 @inject NavigationManager Navigation
 <CascadingAuthenticationState>
-    <AuthorizeView>
+    <AuthorizeView Roles="@Roles">
         <Authorized>
             @ChildContent
         </Authorized>
@@ -13,4 +13,5 @@
 </CascadingAuthenticationState>
 @code {
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Roles{ get; set; }
 }
