@@ -33,7 +33,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-
+builder.Services.AddScoped<CustomHttpHandlerService>();
 // Add authorization policies
 builder.Services.AddAuthorization();
 
@@ -44,7 +44,15 @@ builder.Services.AddScoped(s => (AuthStateProviderService)s.GetRequiredService<A
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorizationCore();
 
-
+// Services
+builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7216/");
+});
+builder.Services.AddHttpClient<ICompanyService, CompanyService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7216/");
+}).AddHttpMessageHandler<CustomHttpHandlerService>();
 builder.Services.AddScoped<ILicenseService, LicenseService>();
 
 var app = builder.Build();

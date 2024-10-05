@@ -16,9 +16,13 @@ namespace ComplianceSoftwareWebApi.Services
         {
             var company = new Company()
             {
-                Address = registerDto.Address,
-                Name = registerDto.Name,
-                Industry = registerDto.Industry
+                StreetAddress = registerDto.StreetAddress,
+                BusinessName = registerDto.BusinessName,
+                BusinessIndustryCode = registerDto.BusinessIndustry.IndustryTypeCode,
+                City = registerDto.City,
+                EntityType = registerDto.EntityType,
+                StateOfFormation = registerDto.StateOfFormation,
+                ZipCode = registerDto.ZipCode,
             };
 
             var user = await _unitOfWork.Users.GetByIdAsync(userId);
@@ -45,6 +49,23 @@ namespace ComplianceSoftwareWebApi.Services
             await _unitOfWork.Users.UpdateAsync(user);
             await _unitOfWork.CompleteAsync();
             return company;
+        }
+
+        public Task<List<string>> GetEntityTypes()
+        {
+            return Task.FromResult(new List<string>
+            {
+                "Sole Proprietorship", "Partnership", "Corporation (C-Corp)", "S Corporation (S-Corp)",
+                "Limited Liability Company (LLC)", "Nonprofit Corporation", "Cooperative (Co-op)",
+                "Professional Corporation (PC)", "Benefit Corporation (B-Corp)", "Joint Venture",
+                "Trust", "Private Limited Company (Ltd)", "Public Limited Company (PLC)",
+                "Holding Company", "Series LLC"
+            });
+        }
+
+        public async Task<List<IndustryType>> GetIndustries()
+        {
+            return (await _unitOfWork.IndustryTypes.GetAllAsync()).ToList();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace ComplianceSoftwareWebApi.Data
         public DbSet<ComplianceRequirement> ComplianceRequirements { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
+        public DbSet<IndustryType> IndustryTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

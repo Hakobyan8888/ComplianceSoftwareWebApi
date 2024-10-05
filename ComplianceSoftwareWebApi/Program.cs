@@ -98,6 +98,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     await InitializeRoles(services); // Call the role initialization method
     await InitializePermissions(services);
+    await InitializeIndustryTypes(services);
 }
 
 // Configure the HTTP request pipeline.
@@ -151,6 +152,44 @@ async Task InitializePermissions(IServiceProvider serviceProvider)
         if (!permissionsDB.Any(x => (int)x.Name == permission))
         {
             await unitOfWork.Permissions.AddAsync(new Permission() { Name = (PermissionTypes)permission });
+        }
+    }
+    await unitOfWork.CompleteAsync();
+}
+
+async Task InitializeIndustryTypes(IServiceProvider serviceProvider)
+{
+    var unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+    var industriesDB = (await unitOfWork.IndustryTypes.GetAllAsync()).ToList();
+    List<IndustryType> industries = new List<IndustryType>
+            {
+                new IndustryType(11, "Agriculture, Forestry, Fishing and Hunting"),
+                new IndustryType(21, "Mining, Quarrying, and Oil and Gas Extraction"),
+                new IndustryType(22, "Utilities"),
+                new IndustryType(23, "Construction"),
+                new IndustryType(31, "Manufacturing"),
+                new IndustryType(42, "Wholesale Trade"),
+                new IndustryType(44, "Retail Trade"),
+                new IndustryType(48, "Transportation and Warehousing"),
+                new IndustryType(51, "Information"),
+                new IndustryType(52, "Finance and Insurance"),
+                new IndustryType(53, "Real Estate and Rental and Leasing"),
+                new IndustryType(54, "Professional, Scientific, and Technical Services"),
+                new IndustryType(55, "Management of Companies and Enterprises"),
+                new IndustryType(56, "Administrative and Support and Waste Management and Remediation Services"),
+                new IndustryType(61, "Educational Services"),
+                new IndustryType(62, "Health Care and Social Assistance"),
+                new IndustryType(71, "Arts, Entertainment, and Recreation"),
+                new IndustryType(72, "Accommodation and Food Services"),
+                new IndustryType(81, "Other Services (except Public Administration)"),
+                new IndustryType(92, "Public Administration"),
+            };
+
+    foreach (var industry in industries)
+    {
+        if (!industriesDB.Any(x => (int)x.IndustryTypeCode == industry.IndustryTypeCode))
+        {
+            await unitOfWork.IndustryTypes.AddAsync(industry);
         }
     }
     await unitOfWork.CompleteAsync();

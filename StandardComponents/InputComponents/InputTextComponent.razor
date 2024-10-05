@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+<div class="form-group azure-devops-style">
+    <label for="@Id">@Label</label>
+    <InputText id="@Id" @bind-Value="Value" class="form-control azure-devops-input" />
+    <ValidationMessage For="@(() => Value)" class="validation-message azure-devops-validation" />
+</div>
+
+@code {
+    [Parameter] public string Id { get; set; }
+    [Parameter] public string Label { get; set; }
+    private string _value;
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set
+        {
+            _value = value;
+            ValueChanged.InvokeAsync(_value);
+        }
+    }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+}

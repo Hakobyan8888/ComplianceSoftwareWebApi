@@ -1,9 +1,16 @@
-﻿namespace ComplianceSoftwareWebApi.DTOs
+﻿using ComplianceSoftwareWebApi.Models;
+
+namespace ComplianceSoftwareWebApi.DTOs
 {
     public class CompanyDto
     {
-        public string Name { get; set; }
-        public string Industry { get; set; }
-        public string Address { get; set; }
+        public string EntityType { get; set; }
+        public string StateOfFormation { get; set; }
+        public string BusinessName { get; set; }
+        public IndustryType BusinessIndustry { get; set; }
+        public string ZipCode { get; set; }
+        public string City { get; set; }
+        public string StreetAddress { get; set; }
+        public DateTime? EntityFormationDate { get; set; }
     }
 }

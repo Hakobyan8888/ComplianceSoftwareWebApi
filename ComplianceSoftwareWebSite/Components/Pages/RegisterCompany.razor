@@ -1,0 +1,86 @@
+﻿@page "/company"
+@using ComplianceSoftwareWebSite.Components.Pages.Auth
+@using ComplianceSoftwareWebSite.Models
+@using ComplianceSoftwareWebSite.Services.Interfaces
+@using StandardComponents.InputComponents
+@rendermode InteractiveServer
+
+<AuthorizeComponent>
+    <EditForm Model="@companyDetails" OnValidSubmit="HandleValidSubmit" FormName="RegisterCompany">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-container">
+            <h3>Company Information</h3>
+
+            <InputSelectComponent TItem="string"
+                                  Id="entityType"
+                                  Label="Company/Entity Type"
+                                  Options="entityTypes"
+                                  ValueChanged="@(v => companyDetails.EntityType = v)" />
+
+            <InputTextComponent Id="stateOfFormation"
+                                Label="State of Formation"
+                                ValueChanged="@(v => companyDetails.StateOfFormation = v)" />
+
+            <InputTextComponent Id="businessName"
+                                Label="Business Name"
+                                ValueChanged="@(v => companyDetails.BusinessName = v)" />
+
+            <InputSelectComponent TItem="string"
+                                  Id="businessIndustry"
+                                  Label="Business Industry"
+                                  ValueChanged="@(v => IndustryValueChanged(v))"
+                                  Options="industryNames"
+                                  PropertyName="IndustryName" />
+
+            <InputTextComponent Id="zipCode"
+                                Label="Zip Code"
+                                ValueChanged="@(v => companyDetails.ZipCode = v)" />
+
+            <InputTextComponent Id="city"
+                                Label="City"
+                                ValueChanged="@(v => companyDetails.City = v)" />
+
+            <InputTextComponent Id="streetAddress"
+                                Label="Address"
+                                ValueChanged="@(v => companyDetails.StreetAddress = v)" />
+
+            <InputDateComponent Id="entityFormationDate"
+                                Label="Entity Formation Date"
+                                ValueChanged="@(v => companyDetails.EntityFormationDate = v)" />
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </EditForm>
+</AuthorizeComponent>
+
+@code {
+    private CompanyModel companyDetails = new CompanyModel();
+    [Inject]
+    public ICompanyService _companyService { get; set; }
+
+    protected List<string> entityTypes { get; private set; } = new List<string>();
+
+    protected List<string> industryNames { get; private set; } = new List<string>();
+    protected List<IndustryType> industries { get; private set; } = new List<IndustryType>();
+
+    private void IndustryValueChanged(string selectedItem)
+    {
+        companyDetails.BusinessIndustry = industries.FirstOrDefault(x => x.IndustryName == selectedItem);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        entityTypes = await _companyService.GetEntityTypes();
+        industries = await _companyService.GetIndustries();
+        industryNames = industries.Select(x => x.IndustryName).ToList();
+        await base.OnInitializedAsync();
+    }
+
+    private async void HandleValidSubmit()
+    {
+        // Handle form submission logic
+        await _companyService.RegisterCompany(companyDetails);
+    }
+}

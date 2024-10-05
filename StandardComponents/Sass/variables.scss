@@ -9,3 +9,10 @@
     --stlib-card-header-bg-color: var(--card-header-bg-color, #eeeeef);
     --stlib-card-header-text-color: var(--card-header-text-color, #30425d)
 }
+
+@mixin input-variables {
+    --stlib-label-color: var(--label-color, #323130);
+    --stlib-placeholder-color: var(--placeholder-color, #767676);
+    --stlib-input-background-color: var(--input-background-color, #ffffff);
+    --stlib-input-border-color: var(--input-border-color, #0078d4);
+}

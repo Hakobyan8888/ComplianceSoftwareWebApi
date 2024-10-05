@@ -1,16 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization;
 @inject NavigationManager Navigation
-
-<AuthorizeView>
-    <Authorized>
-        @ChildContent
-    </Authorized>
-    <NotAuthorized>
-        <p>You are not authorized to view this content. Redirecting to login...</p>
-        <LoginRedirect />
-    </NotAuthorized>
-</AuthorizeView>
-
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            @ChildContent
+        </Authorized>
+        <NotAuthorized>
+            <p>You are not authorized to view this content. Redirecting to login...</p>
+            <LoginRedirect />
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
 @code {
     [Parameter] public RenderFragment ChildContent { get; set; }
 }

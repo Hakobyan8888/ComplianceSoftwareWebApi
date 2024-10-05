@@ -1,7 +1,9 @@
 ﻿using ComplianceSoftwareWebSite.Models.Auth;
 using ComplianceSoftwareWebSite.Services;
+using ComplianceSoftwareWebSite.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Server.IIS;
+using Microsoft.VisualBasic;
 
 namespace ComplianceSoftwareWebSite.Components.Pages.Auth
 {
@@ -14,6 +16,9 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Auth
         public HttpClient _httpClient { get; set; }
         [Inject]
         public NavigationManager _navigationManager { get; set; }
+
+        [Inject]
+        public IAuthService AuthService { get; set; }
         private static bool _isFirstTime = true;
         protected override void OnInitialized()
         {
@@ -29,13 +34,11 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Auth
 
         private async Task HandleLogin()
         {
-            var response = await new HttpClient() { BaseAddress = new Uri("https://localhost:7216/") }.PostAsJsonAsync("api/Auth/login", loginModel);
-            if (response.IsSuccessStatusCode)
+            var response = await AuthService.Login(loginModel);
+            if (response != null)
             {
-                var result = await response.Content.ReadFromJsonAsync<LoginResult>();
-                _stateProviderService.MarkUserAsAuthenticated(result.Token);
-                //HttpContextAccessory.HttpContext.Session.SetString("AuthToken2", result.Token);
-                _navigationManager.NavigateTo("/dashboard");
+                await _stateProviderService.MarkUserAsAuthenticated(response.Token);
+                _navigationManager.NavigateTo("/company");
             }
             else
             {

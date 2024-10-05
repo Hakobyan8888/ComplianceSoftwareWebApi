@@ -2,6 +2,7 @@
 using ComplianceSoftwareWebApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ComplianceSoftwareWebApi.Controllers
 {
@@ -24,5 +25,23 @@ namespace ComplianceSoftwareWebApi.Controllers
             var company = await _companyService.AddCompanyAsync(companyDto, userId);
             return Ok(company);
         }
+
+        [Authorize(Roles = "Owner")]
+        [HttpGet("entity-types")]
+        public async Task<IActionResult> GetEntityTypes()
+        {
+            var entityTypes = await _companyService.GetEntityTypes();
+            return Ok(JsonSerializer.Serialize(entityTypes));
+        }
+
+        [Authorize(Roles = "Owner")]
+        [HttpGet("industries")]
+        public async Task<IActionResult> GetIndustries()
+        {
+            var entityTypes = await _companyService.GetIndustries();
+            return Ok(JsonSerializer.Serialize(entityTypes));
+        }
+
+
     }
 }

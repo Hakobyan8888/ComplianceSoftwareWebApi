@@ -6,5 +6,17 @@
   {
     "outputFile": "CardComponents/ChartComponent.razor.css",
     "inputFile": "CardComponents/ChartComponent.razor.scss"
+  },
+  {
+    "outputFile": "InputComponents/InputDateComponent.razor.css",
+    "inputFile": "InputComponents/InputDateComponent.razor.scss"
+  },
+  {
+    "outputFile": "InputComponents/InputSelectComponent.razor.css",
+    "inputFile": "InputComponents/InputSelectComponent.razor.scss"
+  },
+  {
+    "outputFile": "InputComponents/InputTextComponent.razor.css",
+    "inputFile": "InputComponents/InputTextComponent.razor.scss"
   }
 ]

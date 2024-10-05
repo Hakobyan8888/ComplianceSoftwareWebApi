@@ -1,0 +1,52 @@
+﻿@attribute [type: RenderModeInteractiveServer]
+@using Microsoft.AspNetCore.Components.Forms
+@typeparam TItem
+<div class="form-group azure-devops-style">
+    <label for="@Id">@Label</label>
+    <InputSelect id="@Id" @bind-Value="Value" class="form-control azure-devops-input">
+        @if (typeof(TItem) == typeof(string))
+        {
+            @foreach (var option in Options)
+            {
+                <option value="@option">@option</option>
+            }
+        }
+        else
+        {
+            @foreach (var option in Options)
+            {
+                if (option == null) continue;
+                <option value="@option">@(option)</option>
+            }
+        }
+    </InputSelect>
+    @* <ValidationMessage For="@(() => Value)" class="validation-message azure-devops-validation" /> *@
+</div>
+
+@code {
+    [Parameter] public string Id { get; set; }
+    [Parameter] public string Label { get; set; }
+    private TItem _value;
+    [Parameter]
+    public TItem Value
+    {
+        get => _value;
+        set
+        {
+            _value = value;
+            ValueChanged.InvokeAsync(_value);
+        }
+    }
+    [Parameter]
+    public EventCallback<TItem> ValueChanged { get; set; }
+    [Parameter]
+    public List<TItem> Options { get; set; }
+    [Parameter]
+    public string PropertyName { get; set; }
+
+    private async Task OnValueChanged(object e)
+    {
+        Value = (TItem)e;
+        await ValueChanged.InvokeAsync(Value);
+    }
+}
