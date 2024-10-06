@@ -12,6 +12,7 @@ using ComplianceSoftwareWebApi.Models;
 using ComplianceSoftwareWebApi.Repositories.Interfaces;
 using ComplianceSoftwareWebApi.Repositories;
 using System.Security.Claims;
+using ComplianceSoftwareWebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.WebHost.UseUrls("http://localhost:8080", "https://localhost:9090");
@@ -92,6 +93,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 using (var scope = app.Services.CreateScope())
 {
