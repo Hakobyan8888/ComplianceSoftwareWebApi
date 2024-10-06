@@ -12,6 +12,17 @@ namespace ComplianceSoftwareWebSite.Services
             _httpClient = httpClient;
         }
 
+        public async Task<CompanyModel> GetCompany()
+        {
+
+            var response = await _httpClient.GetAsync("api/company/get");
+            if (response != null && response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CompanyModel>();
+            }
+            return null;
+        }
+
         public async Task<List<string>> GetEntityTypes()
         {
 
@@ -41,6 +52,17 @@ namespace ComplianceSoftwareWebSite.Services
                 return true;
             }
             return false;
+        }
+
+
+        public async Task<List<RegisterModel>> GetCompanyUsers()
+        {
+            var response = await _httpClient.GetAsync("api/Auth/get-users");
+            if (response != null && response.IsSuccessStatusCode)
+            {
+                return await response?.Content?.ReadFromJsonAsync<List<RegisterModel>>();
+            }
+            return null;
         }
     }
 }

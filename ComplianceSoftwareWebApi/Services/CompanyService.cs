@@ -51,6 +51,13 @@ namespace ComplianceSoftwareWebApi.Services
             return company;
         }
 
+        public async Task<Company> GetCompany(string userId)
+        {
+            var user = await _unitOfWork.Users.GetByIdAsync(userId);
+            if (user.CompanyId == null) return null;
+            return await _unitOfWork.Companies.GetByIdAsync(Convert.ToInt32(user.CompanyId));
+        }
+
         public Task<List<string>> GetEntityTypes()
         {
             return Task.FromResult(new List<string>

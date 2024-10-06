@@ -1,0 +1,32 @@
+﻿@page "/users"
+@rendermode InteractiveServer
+
+<div class="azure-devops-table">
+    <h3>Users List</h3>
+    <button class="btn btn-secondary azure-devops-button" @onclick="() => AddUser()">Add User</button>
+    <table class="table azure-devops-table-style">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in _users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>
+                        @* <button class="btn btn-secondary azure-devops-button" @onclick="() => EditUser(user)">Edit</button> *@
+                        <button class="btn btn-danger azure-devops-button" @onclick="() => DeleteUser(user)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

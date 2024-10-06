@@ -1,0 +1,25 @@
+﻿@page "/register"
+@using ComplianceSoftwareWebSite.Models.Auth
+@using StandardComponents.InputComponents
+@rendermode InteractiveServer
+<div class="azure-devops-form">
+    <h3>Add New User</h3>
+
+    <EditForm Model="_registerModel" OnValidSubmit="HandleRegister" FormName="AddUser">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-container">
+            <InputTextComponent Id="UserName"
+                                Label="UserName"
+                                ValueChanged="@(v => _registerModel.UserName = v)" />
+            <InputTextComponent Id="Email"
+                                Label="Email"
+                                ValueChanged="@(v => _registerModel.Email = v)" />
+            <InputPasswordComponent Id="Password"
+                                    Label="Password"
+                                    ValueChanged="@(v => _registerModel.Password = v)" />
+            <button class="btn btn-primary azure-devops-button">Register</button>
+        </div>
+    </EditForm>
+</div>

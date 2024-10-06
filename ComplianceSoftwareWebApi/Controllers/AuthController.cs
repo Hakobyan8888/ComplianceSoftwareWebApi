@@ -5,6 +5,7 @@ using ComplianceSoftwareWebApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ComplianceSoftwareWebApi.Controllers
 {
@@ -92,6 +93,16 @@ namespace ComplianceSoftwareWebApi.Controllers
             var result = await _userManager.CreateAsync(user);
             await _userManager.AddToRoleAsync(user, dto.Role.ToString());
             return Ok(user);
+        }
+
+        [HttpGet("get-users")]
+        [Authorize]
+        public async Task<IActionResult> GetUsersByCompanyId()
+        {
+            var userId = _userService.GetUserIdFromClaims(User);
+            var companyId = (await _userService.GetUserById(userId)).CompanyId;
+            var users = await _authService.GetUsersByCompanyId((int)companyId);
+            return Ok(JsonSerializer.Serialize(users));
         }
     }
 

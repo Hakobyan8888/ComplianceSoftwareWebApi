@@ -81,6 +81,11 @@ namespace ComplianceSoftwareWebApi.Services
         {
             return await _unitOfWork.Users.GetByEmailAsync(email);
         }
+
+        public async Task<List<User>> GetUsersByCompanyId(int companyId)
+        {
+            return await _unitOfWork.Users.GetAllUsersByCompanyId(companyId);
+        }
     }
 
 }

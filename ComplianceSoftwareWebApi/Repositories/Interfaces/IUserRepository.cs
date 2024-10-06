@@ -6,6 +6,7 @@ namespace ComplianceSoftwareWebApi.Repositories.Interfaces
     {
         Task<User> GetByEmailAsync(string email);
         Task<int> GetCompanyIdForUserAsync(string userId);
+        Task<List<User>> GetAllUsersByCompanyId(int companyId);
     }
 
 }

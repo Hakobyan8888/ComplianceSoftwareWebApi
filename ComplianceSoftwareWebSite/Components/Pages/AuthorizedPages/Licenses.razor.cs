@@ -1,8 +1,7 @@
-﻿
-using ComplianceSoftwareWebSite.Models;
+﻿using ComplianceSoftwareWebSite.Models;
 using Microsoft.AspNetCore.Components;
 
-namespace ComplianceSoftwareWebSite.Components.Pages
+namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 {
     public partial class Licenses
     {

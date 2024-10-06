@@ -11,6 +11,16 @@ namespace ComplianceSoftwareWebSite.Services
             _httpClient = httpClient;
         }
 
+        public async Task<bool> AddUser(RegisterModel registerModel)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/Auth/add-user", registerModel);
+            if (response != null && response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public async Task<LoginResult> Login(LoginModel loginModel)
         {
             var response = await _httpClient.PostAsJsonAsync("api/Auth/login", loginModel);
@@ -21,9 +31,14 @@ namespace ComplianceSoftwareWebSite.Services
             return null;
         }
 
-        public Task Register()
+        public async Task<bool> Register(RegisterModel registerModel)
         {
-            return Task.CompletedTask;
+            var response = await _httpClient.PostAsJsonAsync("api/Auth/register", registerModel);
+            if (response != null && response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

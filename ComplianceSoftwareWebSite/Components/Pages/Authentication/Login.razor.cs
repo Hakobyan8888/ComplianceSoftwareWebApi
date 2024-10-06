@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Server.IIS;
 using Microsoft.VisualBasic;
 
-namespace ComplianceSoftwareWebSite.Components.Pages.Auth
+namespace ComplianceSoftwareWebSite.Components.Pages.Authentication
 {
     public partial class Login
     {

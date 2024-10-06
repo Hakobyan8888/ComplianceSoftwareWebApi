@@ -1,4 +1,4 @@
-﻿@using ComplianceSoftwareWebSite.Components.Pages.Auth
+﻿@using ComplianceSoftwareWebSite.Components.Pages.Authentication
 @using Microsoft.AspNetCore.Components.Authorization
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -21,6 +21,11 @@
                 <div class="nav-item">
                     <NavLink class="nav-link" href="/licenses">
                         <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Licenses
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="/users">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Users
                     </NavLink>
                 </div>
             </Authorized>

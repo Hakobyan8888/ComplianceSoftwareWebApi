@@ -1,0 +1,45 @@
+﻿/* WorkItemList.css */
+.work-item-list-container {
+  padding: 20px;
+}
+
+.work-item-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.work-item-table th {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  background-color: #f3f3f3;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.work-item-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.work-item-icon {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.assigned-to-icon img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.state-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: gray;
+  margin-right: 10px;
+}

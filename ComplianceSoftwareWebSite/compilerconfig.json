@@ -1,2 +1,10 @@
 ﻿[
+  {
+    "outputFile": "Components/Pages/AuthorizedPages/Licenses.razor.css",
+    "inputFile": "Components/Pages/AuthorizedPages/Licenses.razor.scss"
+  },
+  {
+    "outputFile": "Components/Pages/AuthorizedPages/Dashboard.razor.css",
+    "inputFile": "Components/Pages/AuthorizedPages/Dashboard.razor.scss"
+  }
 ]

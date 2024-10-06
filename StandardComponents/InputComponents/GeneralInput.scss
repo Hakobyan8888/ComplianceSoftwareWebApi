@@ -12,7 +12,7 @@ $border-color_1: #0078d4;
 
 /* Azure DevOps inspired styling for components */
 
-.azure-devops-style {
+.form-item-group {
     @include input-variables;
     margin-bottom: 20px;
 
@@ -34,7 +34,7 @@ $border-color_1: #0078d4;
     }
 }
 
-.azure-devops-input {
+.input-input {
     @include input-variables;
     width: 100%;
     padding: 10px;
@@ -51,7 +51,7 @@ $border-color_1: #0078d4;
     }
 }
 
-.azure-devops-validation {
+.input-validation {
     color: $color_2;
     font-size: 12px;
 }

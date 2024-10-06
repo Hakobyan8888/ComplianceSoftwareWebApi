@@ -1,4 +1,5 @@
 ﻿using ComplianceSoftwareWebApi.DTOs;
+using ComplianceSoftwareWebApi.Models;
 using ComplianceSoftwareWebApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,19 @@ namespace ComplianceSoftwareWebApi.Controllers
         {
             var userId = _userService.GetUserIdFromClaims(User);
             var company = await _companyService.AddCompanyAsync(companyDto, userId);
+            return Ok(company);
+        }
+
+        [Authorize]
+        [HttpGet("get")]
+        public async Task<IActionResult> GetCompany()
+        {
+            var userId = _userService.GetUserIdFromClaims(User);
+            var company = await _companyService.GetCompany(userId);
+            if (company == null)
+            {
+                return NotFound();
+            }
             return Ok(company);
         }
 

@@ -2,7 +2,7 @@ using ComplianceSoftwareWebSite.Models;
 using ComplianceSoftwareWebSite.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 
-namespace ComplianceSoftwareWebSite.Components.Pages
+namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 {
     public partial class RegisterCompany
     {
@@ -19,6 +19,8 @@ namespace ComplianceSoftwareWebSite.Components.Pages
         }
         [Inject]
         public ICompanyService _companyService { get; set; }
+        [Inject]
+        public NavigationManager _navigationManager { get; set; }
 
         private void IndustryValueChanged(string selectedItem)
         {
@@ -27,6 +29,11 @@ namespace ComplianceSoftwareWebSite.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            var company = await _companyService.GetCompany();
+            if (company != null)
+            {
+                _navigationManager.NavigateTo("/dashboard");
+            }
             _entityTypes = await _companyService.GetEntityTypes();
             _industries = await _companyService.GetIndustries();
             _industryNames = _industries.Select(x => x.IndustryName).ToList();
@@ -35,7 +42,9 @@ namespace ComplianceSoftwareWebSite.Components.Pages
 
         private async void HandleValidSubmit()
         {
-            await _companyService.RegisterCompany(_companyDetails);
+            var response = await _companyService.RegisterCompany(_companyDetails);
+            if (response)
+                _navigationManager.NavigateTo("/dashboard");
         }
     }
 }

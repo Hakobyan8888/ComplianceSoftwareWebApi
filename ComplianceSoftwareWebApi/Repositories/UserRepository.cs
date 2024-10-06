@@ -23,6 +23,11 @@ namespace ComplianceSoftwareWebApi.Repositories
                 .Select(u => u.CompanyId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<List<User>> GetAllUsersByCompanyId(int companyId)
+        {
+            return await _context.Users.Where(x => x.CompanyId == companyId).ToListAsync();
+        }
     }
 
 }

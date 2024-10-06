@@ -1,12 +1,14 @@
-﻿/* Dashboard.razor.css */
+﻿$color_1: black;
+$background-color_1: transparent;
+
 .dashboard-container {
-    background-color: transparent;
+    background-color: $background-color_1;
     padding: 20px;
 }
 
 .dashboard-title {
     font-size: 24px;
-    color: black;
+    color: $color_1;
 }
 
 .dashboard {

@@ -1,4 +1,8 @@
-﻿/* WorkItemList.css */
+﻿$font-family_1: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$background-color_1: #f3f3f3;
+$background-color_2: gray;
+
+/* WorkItemList.css */
 .work-item-list-container {
     padding: 20px;
 }
@@ -6,35 +10,37 @@
 .work-item-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    font-family: $font-family_1;
 
-    .work-item-table th, .work-item-table td {
+    th {
         padding: 10px;
         border-bottom: 1px solid #ddd;
         text-align: left;
-    }
-
-    .work-item-table th {
-        background-color: #f3f3f3;
+        background-color: $background-color_1;
         font-weight: bold;
         text-transform: uppercase;
     }
 
-    .work-item-table td {
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
         vertical-align: middle;
     }
+}
 
 .work-item-icon {
     margin-right: 10px;
     font-size: 1.2em;
 }
 
-.assigned-to-icon img {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-    border-radius: 50%;
+.assigned-to-icon {
+    img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        border-radius: 50%;
+    }
 }
 
 .state-indicator {
@@ -42,6 +48,6 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: gray; /* Customize based on the state */
+    background-color: $background-color_2;
     margin-right: 10px;
 }

@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Forms
-<div class="form-group azure-devops-style">
+<div class="form-group form-item-group">
     <label for="@Id">@Label</label>
-    <InputDate id="@Id" @bind-Value="Value" class="form-control azure-devops-input" />
-    <ValidationMessage For="@(() => Value)" class="validation-message azure-devops-validation" />
+    <InputDate id="@Id" @bind-Value="Value" class="form-control input-input" />
+    <ValidationMessage For="@(() => Value)" class="validation-message input-validation" />
 </div>
 
 @code {

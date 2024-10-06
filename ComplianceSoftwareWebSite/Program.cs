@@ -23,6 +23,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = "localhost:6379"; // Change to your Redis server configuration
+    options.InstanceName = "SessionInstance";
 });
 
 // Add session management
@@ -48,7 +49,7 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7216/");
-});
+}).AddHttpMessageHandler<CustomHttpHandlerService>(); ;
 builder.Services.AddHttpClient<ICompanyService, CompanyService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7216/");
