@@ -1,1 +1,1 @@
-﻿.dashboard-container{background-color:transparent;padding:20px;}.dashboard-title{font-size:24px;color:#000;}.dashboard{display:flex;flex-wrap:wrap;}
+﻿.dashboard-container{background-color:transparent;padding:20px;}.dashboard-title{font-size:24px;color:var(--title-text-color);}.dashboard{display:flex;flex-wrap:wrap;}

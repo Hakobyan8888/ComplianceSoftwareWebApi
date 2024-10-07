@@ -1,0 +1,16 @@
+﻿@import 'GeneralButtons.scss';
+
+.btn-primary {
+    background-color: var(--stlib-button-primary-bg);
+    color: var(--stlib-button-primary-text-color);
+
+    &:hover {
+        background-color: var(--stlib-button-primary-bg-hover);
+    }
+
+    &:disabled {
+        background-color: var(--stlib-button-primary-bg-disabled);
+        color: var(--stlib-button-primary-text-disabled);
+        cursor: not-allowed;
+    }
+}

@@ -3,11 +3,11 @@ $background-color_1: #f3f3f3;
 $background-color_2: gray;
 
 /* WorkItemList.css */
-.work-item-list-container {
+.license-item-list-container {
     padding: 20px;
 }
 
-.work-item-table {
+.license-item-table {
     width: 100%;
     border-collapse: collapse;
     font-family: $font-family_1;
@@ -29,7 +29,7 @@ $background-color_2: gray;
     }
 }
 
-.work-item-icon {
+.license-item-icon {
     margin-right: 10px;
     font-size: 1.2em;
 }

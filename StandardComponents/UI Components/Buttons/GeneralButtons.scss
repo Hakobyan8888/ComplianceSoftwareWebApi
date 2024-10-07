@@ -1,0 +1,11 @@
+﻿@import '../../Sass/variables.scss';
+
+/* Optional custom styles for Azure DevOps style button */
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}

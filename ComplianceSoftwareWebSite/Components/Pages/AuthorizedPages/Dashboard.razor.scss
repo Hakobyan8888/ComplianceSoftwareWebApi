@@ -1,14 +1,13 @@
 ﻿$color_1: black;
-$background-color_1: transparent;
 
 .dashboard-container {
-    background-color: $background-color_1;
+    background-color: transparent;
     padding: 20px;
 }
 
 .dashboard-title {
     font-size: 24px;
-    color: $color_1;
+    color: var(--title-text-color);
 }
 
 .dashboard {

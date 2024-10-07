@@ -9,7 +9,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Authentication
 {
     public partial class Login
     {
-        private LoginModel loginModel = new LoginModel();
+        private LoginModel _loginModel = new LoginModel();
         [Inject]
         public AuthStateProviderService _stateProviderService { get; set; }
         [Inject]
@@ -34,7 +34,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.Authentication
 
         private async Task HandleLogin()
         {
-            var response = await AuthService.Login(loginModel);
+            var response = await AuthService.Login(_loginModel);
             if (response != null)
             {
                 await _stateProviderService.MarkUserAsAuthenticated(response.Token);

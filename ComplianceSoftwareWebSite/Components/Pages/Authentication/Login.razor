@@ -1,9 +1,26 @@
 ﻿@page "/login"
 @rendermode InteractiveServer
 @inject IHttpContextAccessor HttpContextAccessory
+@using StandardComponents.InputComponents
+@using StandardComponents.UI_Components.Buttons
 
-<EditForm Model="loginModel" OnValidSubmit="HandleLogin" FormName="LoginForm">
-    <InputText @bind-Value=this.loginModel.Email placeholder="Email" />
-    <InputText @bind-Value=this.loginModel.Password placeholder="Password" type="password" />
-    <button type="submit">Login</button>
-</EditForm>
+<div class="form-container">
+
+    <EditForm class="form" Model="_loginModel" OnValidSubmit="HandleLogin" FormName="LoginForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <h3>Login</h3>
+        <div>
+            <InputTextComponent Id="Email"
+                                Label="Email"
+                                ValueChanged="@(v => _loginModel.Email = v)" />
+
+            <InputPasswordComponent Id="Password"
+                                    Label="Password"
+                                    ValueChanged="@(v => _loginModel.Password = v)" />
+
+            <PrimaryButtonComponent ButtonType="submit">Login</PrimaryButtonComponent>
+        </div>
+    </EditForm>
+</div>

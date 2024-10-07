@@ -8,7 +8,7 @@ $background-color_2: transparent;
 
 .bar-chart-container {
     width: 350px;
-    background-color: $background-color_1;
+    background-color: var(--stlib-card-bg-color);
     border-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     padding: 15px;

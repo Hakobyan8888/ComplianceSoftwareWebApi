@@ -1,14 +1,14 @@
 ﻿/* WorkItemList.css */
-.work-item-list-container {
+.license-item-list-container {
   padding: 20px;
 }
 
-.work-item-table {
+.license-item-table {
   width: 100%;
   border-collapse: collapse;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-.work-item-table th {
+.license-item-table th {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: left;
@@ -16,14 +16,14 @@
   font-weight: bold;
   text-transform: uppercase;
 }
-.work-item-table td {
+.license-item-table td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: left;
   vertical-align: middle;
 }
 
-.work-item-icon {
+.license-item-icon {
   margin-right: 10px;
   font-size: 1.2em;
 }

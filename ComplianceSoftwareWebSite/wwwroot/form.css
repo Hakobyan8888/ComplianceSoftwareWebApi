@@ -1,0 +1,24 @@
+﻿/* Center the form and make it responsive */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Full viewport height to center vertically */
+    padding: 20px;
+}
+
+.form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* On smaller screens, the form will take 100% width */
+@media screen and (max-width: 768px) {
+    .responsive-form {
+        width: 100%;
+        max-width: none; /* Remove max-width to let it be 100% */
+    }
+}

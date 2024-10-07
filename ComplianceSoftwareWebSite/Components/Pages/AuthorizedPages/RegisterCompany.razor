@@ -3,56 +3,59 @@
 @using ComplianceSoftwareWebSite.Models
 @using ComplianceSoftwareWebSite.Services.Interfaces
 @using StandardComponents.InputComponents
+@using StandardComponents.UI_Components.Buttons
 @rendermode InteractiveServer
 
 <AuthorizeComponent>
-    <EditForm Model="@_companyDetails" OnValidSubmit="HandleValidSubmit" FormName="RegisterCompany">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <div class="form-container">
+        <EditForm class="form" Model="@_companyDetails" OnValidSubmit="HandleValidSubmit" FormName="RegisterCompany">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div class="form-container">
-            <h3>Company Information</h3>
+            <div>
+                <h3>Company Information</h3>
 
-            <InputSelectComponent TItem="string"
-                                  Id="entityType"
-                                  Label="Company/Entity Type"
-                                  Options="_entityTypes"
-                                  ValueChanged="@(v => _companyDetails.EntityType = v)" />
+                <InputSelectComponent TItem="string"
+                                      Id="entityType"
+                                      Label="Company/Entity Type"
+                                      Options="_entityTypes"
+                                      ValueChanged="@(v => _companyDetails.EntityType = v)" />
 
-            <InputTextComponent Id="stateOfFormation"
-                                Label="State of Formation"
-                                ValueChanged="@(v => _companyDetails.StateOfFormation = v)" />
+                <InputTextComponent Id="stateOfFormation"
+                                    Label="State of Formation"
+                                    ValueChanged="@(v => _companyDetails.StateOfFormation = v)" />
 
-            <InputTextComponent Id="businessName"
-                                Label="Business Name"
-                                ValueChanged="@(v => _companyDetails.BusinessName = v)" />
+                <InputTextComponent Id="businessName"
+                                    Label="Business Name"
+                                    ValueChanged="@(v => _companyDetails.BusinessName = v)" />
 
-            <InputSelectComponent TItem="string"
-                                  Id="businessIndustry"
-                                  Label="Business Industry"
-                                  ValueChanged="@(v => IndustryValueChanged(v))"
-                                  Options="_industryNames"
-                                  PropertyName="IndustryName" />
+                <InputSelectComponent TItem="string"
+                                      Id="businessIndustry"
+                                      Label="Business Industry"
+                                      ValueChanged="@(v => IndustryValueChanged(v))"
+                                      Options="_industryNames"
+                                      PropertyName="IndustryName" />
 
-            <InputTextComponent Id="zipCode"
-                                Label="Zip Code"
-                                ValueChanged="@(v => _companyDetails.ZipCode = v)" />
+                <InputTextComponent Id="zipCode"
+                                    Label="Zip Code"
+                                    ValueChanged="@(v => _companyDetails.ZipCode = v)" />
 
-            <InputTextComponent Id="city"
-                                Label="City"
-                                ValueChanged="@(v => _companyDetails.City = v)" />
+                <InputTextComponent Id="city"
+                                    Label="City"
+                                    ValueChanged="@(v => _companyDetails.City = v)" />
 
-            <InputTextComponent Id="streetAddress"
-                                Label="Address"
-                                ValueChanged="@(v => _companyDetails.StreetAddress = v)" />
+                <InputTextComponent Id="streetAddress"
+                                    Label="Address"
+                                    ValueChanged="@(v => _companyDetails.StreetAddress = v)" />
 
-            <InputDateComponent Id="entityFormationDate"
-                                Label="Entity Formation Date"
-                                ValueChanged="@(v => _companyDetails.EntityFormationDate = v)" />
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </EditForm>
+                <InputDateComponent Id="entityFormationDate"
+                                    Label="Entity Formation Date"
+                                    ValueChanged="@(v => _companyDetails.EntityFormationDate = v)" />
+                                    
+            <PrimaryButtonComponent ButtonType="submit">Register Company</PrimaryButtonComponent>
+            </div>
+        </EditForm>
+    </div>
 </AuthorizeComponent>
 
 

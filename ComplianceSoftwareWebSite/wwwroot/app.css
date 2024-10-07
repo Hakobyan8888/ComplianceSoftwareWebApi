@@ -1,6 +1,11 @@
 :root {
     --primary-bg-color: #d9dbdb;
-    --button-primary-color: #496098;
+    --button-primary-color: #0078d4;
+    --button-primary-text-color: white;
+    --button-primary-color-hover: #005a9e;
+    --button-primary-color-disabled: #f4f4f4;
+    --button-primary-color-text-disabled: #d0d0d0;
+
     --button-secondary-color: #d9e5f6;
     --card-bg-color: #fdfdfd;
     --chart-bar-color-1: #4b798f;
@@ -15,6 +20,11 @@
     --secondary-bg-color: #c9cdd4;
     --navigation-text-color: #343535;
     --navigation-selected-color: #d0d1d0;
+    --label-color: #323130;
+    --placeholder-color: #767676;
+    --input-background-color: #ffffff;
+    --input-border-color: #0078d4;
+    --title-text-color: #17253d;
 }
 
 html, body {

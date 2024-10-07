@@ -1,5 +1,10 @@
 ﻿@mixin button-variables {
-    --stlib-button-primary-bg: var(--button-primary-color, #b8a87f);
+    --stlib-button-primary-bg: var(--button-primary-color, #0078d4);
+    --stlib-button-primary-text-color: var(--button-primary-text-color, white);
+    --stlib-button-primary-bg-hover: var(--button-primary-color-hover, #005a9e);
+    --stlib-button-primary-bg-disabled: var(--button-primary-color-disabled, #f4f4f4);
+    --stlib-button-primary-text-disabled: var(--button-primary-color-text-disabled, #d0d0d0);
+
     --stlib-button-secondary-bg: var(--button-secondary-color, #d9e5f6);
 }
 

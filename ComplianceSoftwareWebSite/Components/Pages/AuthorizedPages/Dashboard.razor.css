@@ -5,7 +5,7 @@
 
 .dashboard-title {
   font-size: 24px;
-  color: black;
+  color: var(--title-text-color);
 }
 
 .dashboard {
