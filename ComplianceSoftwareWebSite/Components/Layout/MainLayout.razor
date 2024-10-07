@@ -5,25 +5,32 @@
     <AuthorizeView>
         <Authorized>
             <div class="sidebar">
-                <NavMenu />
+                <AuthorizedNavMenu />
             </div>
-
         </Authorized>
+      @*   <NotAuthorized>
+            <NotAuthorizedNavMenu />
+        </NotAuthorized> *@
     </AuthorizeView>
     <main>
         <AuthorizeView>
-            <Authorized>
-                <div class="top-row px-4">
-                    <a href="/logout">Logout</a>
-                </div>
-            </Authorized>
             <NotAuthorized>
-                <div class="top-row px-4">
-                    <a href="/login">Login</a>
-                    <a href="/register">Get Started</a>
-                </div>
+                <NotAuthorizedNavMenu />
             </NotAuthorized>
         </AuthorizeView>
+        @*    <AuthorizeView>
+        <Authorized>
+        <div class="top-row px-4">
+        <a href="/logout">Logout</a>
+        </div>
+        </Authorized>
+        <NotAuthorized>
+        <div class="top-row px-4">
+        <a href="/login">Login</a>
+        <a href="/register">Get Started</a>
+        </div>
+        </NotAuthorized>
+        </AuthorizeView> *@
 
         <article class="content px-4">
             @Body
