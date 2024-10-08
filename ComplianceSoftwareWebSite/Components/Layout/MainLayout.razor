@@ -8,8 +8,8 @@
                 <AuthorizedNavMenu />
             </div>
         </Authorized>
-      @*   <NotAuthorized>
-            <NotAuthorizedNavMenu />
+        @*   <NotAuthorized>
+        <NotAuthorizedNavMenu />
         </NotAuthorized> *@
     </AuthorizeView>
     <main>
@@ -17,13 +17,13 @@
             <NotAuthorized>
                 <NotAuthorizedNavMenu />
             </NotAuthorized>
+            <Authorized>
+                <div class="top-row px-4">
+                    <a href="/logout">Logout</a>
+                </div>
+            </Authorized>
         </AuthorizeView>
-        @*    <AuthorizeView>
-        <Authorized>
-        <div class="top-row px-4">
-        <a href="/logout">Logout</a>
-        </div>
-        </Authorized>
+        @*
         <NotAuthorized>
         <div class="top-row px-4">
         <a href="/login">Login</a>

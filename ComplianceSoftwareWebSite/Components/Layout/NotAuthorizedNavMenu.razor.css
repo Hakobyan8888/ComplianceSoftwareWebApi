@@ -56,14 +56,6 @@
 }
 
 
-    .nav-item:first-of-type {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
-    }
-
 
 
     .nav-item ::deep .nav-link {
@@ -88,6 +80,7 @@
 
 .nav-scrollable {
     display: none;
+    padding-top: 1rem;
 }
 
 .navbar-toggler:checked ~ .nav-scrollable {
@@ -104,16 +97,30 @@
 }
 
 @media (min-width: 641px) {
+
+    ::deep .nav-link {
+        padding-right: .5rem !important;
+        padding-left: .5rem !important;
+        height: auto !important;
+        line-height: normal !important;
+    }
+
     .navbar-toggler {
         display: none;
     }
 
+    .navbar-nav {
+        flex-direction: row !important;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+
     .nav-scrollable {
-        /* Never collapse the sidebar for wide screens */
         display: block;
-        /* Allow sidebar to scroll for tall menus */
-        height: calc(100vh - 3.5rem);
-        overflow-y: auto;
+        padding-top: 0rem;
     }
 
     .container-fluid {
