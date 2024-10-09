@@ -226,13 +226,43 @@ namespace ComplianceSoftwareWebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes an employee or user based on the provided email.
+        /// Only accessible to users with the Owner or Manager roles.
+        /// </summary>
+        /// <param name="email">The email of the employee/user to be deleted.</param>
+        /// <returns>Returns a success status if deletion is successful, otherwise an appropriate error message is returned.</returns>
         [HttpDelete("delete-user-employee")]
         [Authorize(Roles = "Owner,Manager")]
         public async Task<IActionResult> DeleteUserEmployee(string email)
         {
-            var isSucceeded = await _authService.DeleteUser(email);
-            return Ok(isSucceeded);
+            try
+            {
+                // Validate input
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return BadRequest("Email cannot be empty or null.");
+                }
+
+                // Attempt to delete the user
+                var isSucceeded = await _authService.DeleteUser(email);
+
+                // Check if the deletion was successful
+                if (!isSucceeded)
+                {
+                    return NotFound(new { Message = $"User with email {email} could not be found or deleted." });
+                }
+
+                return Ok(new { Message = $"User with email {email} successfully deleted." });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (logging should be implemented in ExceptionHandlingMiddleware)
+                // The global middleware will handle the response for unhandled exceptions
+                throw;
+            }
         }
+
 
         [HttpPost("login/cookies")]
         public async Task<IActionResult> LoginCookies(LoginDto dto)

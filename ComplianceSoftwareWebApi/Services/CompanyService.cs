@@ -14,49 +14,114 @@ namespace ComplianceSoftwareWebApi.Services
         }
         public async Task<Company> AddCompanyAsync(CompanyDto registerDto, string userId)
         {
-            var company = new Company()
+            try
             {
-                StreetAddress = registerDto.StreetAddress,
-                BusinessName = registerDto.BusinessName,
-                BusinessIndustryCode = registerDto.BusinessIndustry.IndustryTypeCode,
-                City = registerDto.City,
-                EntityType = registerDto.EntityType,
-                StateOfFormation = registerDto.StateOfFormation,
-                ZipCode = registerDto.ZipCode,
-            };
-
-            var user = await _unitOfWork.Users.GetByIdAsync(userId);
-            if (user.Role == Roles.Owner && !(await _unitOfWork.UserPermissions.GetAllAsync()).Any())
-            {
-                var permissions = await _unitOfWork.Permissions.GetAllAsync();
-                var userPermissions = new List<UserPermission>();
-                int id = 0;
-                foreach (var permission in permissions)
+                // Create a new company entity from the DTO
+                var company = new Company()
                 {
-                    var userPermission = new UserPermission
-                    {
-                        Permission = permission,
-                        UserId = userId
-                    };
-                    userPermissions.Add(userPermission);
-                    await _unitOfWork.UserPermissions.AddAsync(userPermission);
-                }
-            }
-            await _unitOfWork.Companies.AddAsync(company);
-            await _unitOfWork.CompleteAsync();
+                    StreetAddress = registerDto.StreetAddress,
+                    BusinessName = registerDto.BusinessName,
+                    BusinessIndustryCode = registerDto.BusinessIndustry.IndustryTypeCode,
+                    City = registerDto.City,
+                    EntityType = registerDto.EntityType,
+                    StateOfFormation = registerDto.StateOfFormation,
+                    ZipCode = registerDto.ZipCode,
+                };
 
-            user.CompanyId = company.Id;
-            await _unitOfWork.Users.UpdateAsync(user);
-            await _unitOfWork.CompleteAsync();
-            return company;
+                // Retrieve the user by userId
+                var user = await _unitOfWork.Users.GetByIdAsync(userId);
+                if (user == null)
+                {
+                    throw new ArgumentException("User not found");
+                }
+
+                // If the user is an owner and no user permissions exist, assign all permissions
+                if (user.Role == Roles.Owner && !(await _unitOfWork.UserPermissions.GetAllAsync()).Any())
+                {
+                    var permissions = await _unitOfWork.Permissions.GetAllAsync();
+                    var userPermissions = new List<UserPermission>();
+
+                    foreach (var permission in permissions)
+                    {
+                        var userPermission = new UserPermission
+                        {
+                            Permission = permission,
+                            UserId = userId
+                        };
+                        userPermissions.Add(userPermission);
+                        await _unitOfWork.UserPermissions.AddAsync(userPermission);
+                    }
+                }
+
+                // Add the new company
+                await _unitOfWork.Companies.AddAsync(company);
+                await _unitOfWork.CompleteAsync();
+
+                // Update the user with the new company Id
+                user.CompanyId = company.Id;
+                await _unitOfWork.Users.UpdateAsync(user);
+                await _unitOfWork.CompleteAsync();
+
+                return company;
+            }
+            catch (ArgumentException ex)
+            {
+                // Handle known errors
+                throw;
+            }
+            catch (Exception)
+            {
+                // Let middleware handle unexpected exceptions
+                throw;
+            }
         }
 
         public async Task<Company> GetCompany(string userId)
         {
-            var user = await _unitOfWork.Users.GetByIdAsync(userId);
-            if (user.CompanyId == null) return null;
-            return await _unitOfWork.Companies.GetByIdAsync(Convert.ToInt32(user.CompanyId));
+            try
+            {
+                // Retrieve the user by userId
+                var user = await _unitOfWork.Users.GetByIdAsync(userId);
+                if (user == null)
+                {
+                    throw new ArgumentException("User not found");
+                }
+
+                // Check if the user is associated with a company
+                if (user.CompanyId == null)
+                {
+                    return null;
+                }
+
+                // Retrieve the company by Id
+                return await _unitOfWork.Companies.GetByIdAsync(Convert.ToInt32(user.CompanyId));
+            }
+            catch (ArgumentException ex)
+            {
+                // Handle known errors
+                throw;
+            }
+            catch (Exception)
+            {
+                // Let middleware handle unexpected exceptions
+                throw;
+            }
         }
+
+        public async Task<List<IndustryType>> GetIndustries()
+        {
+            try
+            {
+                // Retrieve all industry types
+                return (await _unitOfWork.IndustryTypes.GetAllAsync()).ToList();
+            }
+            catch (Exception)
+            {
+                // Let middleware handle unexpected exceptions
+                throw;
+            }
+        }
+
 
         public Task<List<string>> GetEntityTypes()
         {
@@ -70,9 +135,6 @@ namespace ComplianceSoftwareWebApi.Services
             });
         }
 
-        public async Task<List<IndustryType>> GetIndustries()
-        {
-            return (await _unitOfWork.IndustryTypes.GetAllAsync()).ToList();
-        }
+
     }
 }
