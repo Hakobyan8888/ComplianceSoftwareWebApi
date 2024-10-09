@@ -1,33 +1,37 @@
 ﻿@page "/add-user"
+@using ComplianceSoftwareWebSite.Components.Pages.Authentication
 @using ComplianceSoftwareWebSite.Models.Auth
 @using StandardComponents.InputComponents
 @using StandardComponents.UI_Components.Buttons
 @rendermode InteractiveServer
 
-<div class="form-container">
-    <EditForm class="form" Model="_registerModel" OnValidSubmit="HandleRegister" FormName="AddUser">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <h3>Add New User</h3>
-        <div>
-            <InputTextComponent Id="UserName"
-                                Label="UserName"
-                                ValueChanged="@(v => _registerModel.UserName = v)" />
-            <InputTextComponent Id="Email"
-                                Label="Email"
-                                ValueChanged="@(v => _registerModel.Email = v)" />
-            <InputPasswordComponent Id="Password"
-                                    Label="Password"
-                                    ValueChanged="@(v => _registerModel.Password = v)" />
-            <InputSelectComponent TItem="string"
-                                  Id="entityType"
-                                  Label="Company/Entity Type"
-                                  Options="_roles"
-                                  ValueChanged="@(v => {
+
+<AuthorizeComponent>
+    <div class="form-container">
+        <EditForm class="form" Model="_registerModel" OnValidSubmit="HandleRegister" FormName="AddUser">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <h3>Add New User</h3>
+            <div>
+                <InputTextComponent Id="UserName"
+                                    Label="UserName"
+                                    ValueChanged="@(v => _registerModel.UserName = v)" />
+                <InputTextComponent Id="Email"
+                                    Label="Email"
+                                    ValueChanged="@(v => _registerModel.Email = v)" />
+                <InputPasswordComponent Id="Password"
+                                        Label="Password"
+                                        ValueChanged="@(v => _registerModel.Password = v)" />
+                <InputSelectComponent TItem="string"
+                                      Id="entityType"
+                                      Label="Company/Entity Type"
+                                      Options="_roles"
+                                      ValueChanged="@(v => {
                                             Enum.TryParse(v, out Roles role);
                                             _registerModel.Role = role;
                                         })" />
-            <PrimaryButtonComponent ButtonType="submit">Add User</PrimaryButtonComponent>
-        </div>
-    </EditForm>
-</div>
+                <PrimaryButtonComponent ButtonType="submit">Add User</PrimaryButtonComponent>
+            </div>
+        </EditForm>
+    </div>
+</AuthorizeComponent>

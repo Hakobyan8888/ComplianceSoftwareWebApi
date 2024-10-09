@@ -7,6 +7,7 @@ namespace ComplianceSoftwareWebSite.Services.Interfaces
         Task<LoginResult> Login(LoginModel loginModel);
         Task<bool> Register(RegisterModel registerModel);
         Task<bool> AddUser(RegisterModel registerModel);
+        Task DeleteUser(string email);
 
     }
 }

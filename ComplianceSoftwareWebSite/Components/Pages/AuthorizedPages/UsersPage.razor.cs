@@ -18,16 +18,27 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 
         [Inject]
         public ICompanyService CompanyService { get; set; }
+        [Inject]
+        public IAuthService AuthService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            _users = await CompanyService.GetCompanyUsers();
+            await GetUsers();
             await base.OnInitializedAsync();
         }
 
-        public void DeleteUser(RegisterModel user)
+        public async void DeleteUser(RegisterModel user)
         {
+            await AuthService.DeleteUser(user.Email);
+            await GetUsers();
+            await InvokeAsync(StateHasChanged);
         }
+
+        private async Task GetUsers()
+        {
+            _users = await CompanyService.GetCompanyUsers();
+        }
+
         public void AddUser()
         {
             _navigationManager.NavigateTo("/add-user");
