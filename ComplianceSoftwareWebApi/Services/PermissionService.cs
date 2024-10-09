@@ -46,6 +46,12 @@ namespace ComplianceSoftwareWebApi.Services
         {
             return await _userService.HasPermissionAsync(userId, permissionTypes);
         }
+
+        public async Task<IEnumerable<Permission>> GetAllPermissionTypes()
+        {
+            var permissions = await _unitOfWork.Permissions.GetAllAsync();
+            return permissions;
+        }
     }
 
 }

@@ -2,6 +2,7 @@
 using ComplianceSoftwareWebApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ComplianceSoftwareWebApi.Controllers
 {
@@ -30,6 +31,14 @@ namespace ComplianceSoftwareWebApi.Controllers
         {
             await _permissionService.RemovePermissionAsync(dto);
             return Ok();
+        }
+
+        [HttpPost("GetAllPermissionTypes")]
+        [Authorize]
+        public async Task<IActionResult> GetAllPermissionTypes()
+        {
+            var permissions = await _permissionService.GetAllPermissionTypes();
+            return Ok(JsonSerializer.Serialize(permissions));
         }
     }
 
