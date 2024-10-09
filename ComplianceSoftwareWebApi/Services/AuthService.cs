@@ -86,6 +86,15 @@ namespace ComplianceSoftwareWebApi.Services
         {
             return await _unitOfWork.Users.GetAllUsersByCompanyId(companyId);
         }
+
+        public async Task<bool> DeleteUser(string email)
+        {
+            var user = await _unitOfWork.Users.GetByEmailAsync(email);
+            if (user == null) return false;
+            await _unitOfWork.Users.DeleteAsync(user.Id);
+            await _unitOfWork.CompleteAsync();
+            return true;
+        }
     }
 
 }
