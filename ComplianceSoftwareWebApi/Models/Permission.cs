@@ -6,7 +6,8 @@ namespace ComplianceSoftwareWebApi.Models
     {
         [Key]
         public int Id { get; set; }
-        public PermissionTypes Name { get; set; } // e.g., "Upload Document", "View Documents", "Manage Compliance"
+        public PermissionTypes PermissionType { get; set; }
+        public string PermissionName { get; set; } // e.g., "Upload Document", "View Documents", "Manage Compliance"
     }
 
     public enum PermissionTypes
