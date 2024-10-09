@@ -16,6 +16,7 @@ namespace ComplianceSoftwareWebApi.Models
         RemoveDocument,
         ViewDocuments,
         ManageCompliance,
-        AddUser
+        AddUser,
+        EditUser,
     }
 }
