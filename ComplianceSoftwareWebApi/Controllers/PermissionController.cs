@@ -33,7 +33,7 @@ namespace ComplianceSoftwareWebApi.Controllers
             return Ok();
         }
 
-        [HttpPost("GetAllPermissionTypes")]
+        [HttpGet("GetAllPermissionTypes")]
         [Authorize]
         public async Task<IActionResult> GetAllPermissionTypes()
         {

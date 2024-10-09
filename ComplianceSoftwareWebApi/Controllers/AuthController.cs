@@ -226,6 +226,14 @@ namespace ComplianceSoftwareWebApi.Controllers
             }
         }
 
+        [HttpDelete("delete-user-employee")]
+        [Authorize(Roles = "Owner,Manager")]
+        public async Task<IActionResult> DeleteUserEmployee(string email)
+        {
+            var isSucceeded = await _authService.DeleteUser(email);
+            return Ok(isSucceeded);
+        }
+
         [HttpPost("login/cookies")]
         public async Task<IActionResult> LoginCookies(LoginDto dto)
         {

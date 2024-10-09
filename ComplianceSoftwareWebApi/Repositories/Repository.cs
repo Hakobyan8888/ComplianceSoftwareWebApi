@@ -48,6 +48,15 @@ namespace ComplianceSoftwareWebApi.Repositories
         {
             return await _dbSet.FindAsync(id);
         }
+
+        public async Task DeleteAsync(string id)
+        {
+            var entity = await _dbSet.FindAsync(id);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
+        }
     }
 
 }

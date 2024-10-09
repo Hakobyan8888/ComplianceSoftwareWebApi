@@ -10,6 +10,7 @@ namespace ComplianceSoftwareWebApi.Services.Interfaces
         Task<User> GetUserByEmailAsync(string email);
         Task AddUserToCompanyAsync(RegisterDto dto);
         Task<List<User>> GetUsersByCompanyId(int companyId);
+        Task<bool> DeleteUser(string email);
     }
 
 }
