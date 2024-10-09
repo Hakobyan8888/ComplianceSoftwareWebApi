@@ -19,5 +19,6 @@ namespace ComplianceSoftwareWebApi.Models
         ManageCompliance,
         AddUser,
         EditUser,
+        DeleteUser,
     }
 }

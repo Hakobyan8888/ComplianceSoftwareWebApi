@@ -40,5 +40,11 @@ namespace ComplianceSoftwareWebSite.Services
             }
             return false;
         }
+
+        public async Task DeleteUser(string email)
+        {
+            var response = await _httpClient.DeleteAsync($"api/Auth/delete-user-employee?email={email}");
+            //if(response != null && response.IsSuccessStatusCode) 
+        }
     }
 }
