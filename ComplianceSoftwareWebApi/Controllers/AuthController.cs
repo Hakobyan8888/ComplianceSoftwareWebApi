@@ -243,7 +243,13 @@ namespace ComplianceSoftwareWebApi.Controllers
                 {
                     return BadRequest("Email cannot be empty or null.");
                 }
+                var userId = _userService.GetUserIdFromClaims(User);
 
+                // Check if the user has permission to add new users
+                if (!await _permissionService.HasPermissionAsync(userId, PermissionTypes.DeleteUser) && !User.IsInRole("Owner"))
+                {
+                    return Forbid("You do not have permission to add users.");
+                }
                 // Attempt to delete the user
                 var isSucceeded = await _authService.DeleteUser(email);
 
