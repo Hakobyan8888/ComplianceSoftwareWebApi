@@ -108,12 +108,12 @@ namespace ComplianceSoftwareWebApi.Services
             }
         }
 
-        public async Task<List<IndustryType>> GetIndustries()
+        public async Task<List<Industry>> GetIndustries()
         {
             try
             {
                 // Retrieve all industry types
-                return (await _unitOfWork.IndustryTypes.GetAllAsync()).ToList();
+                return (await _unitOfWork.Industries.GetAllAsync()).ToList();
             }
             catch (Exception)
             {

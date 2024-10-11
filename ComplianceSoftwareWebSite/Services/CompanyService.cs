@@ -34,12 +34,12 @@ namespace ComplianceSoftwareWebSite.Services
             return null;
         }
 
-        public async Task<List<IndustryType>> GetIndustries()
+        public async Task<List<Industry>> GetIndustries()
         {
             var response = await _httpClient.GetAsync("api/company/industries");
             if (response != null && response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<List<IndustryType>>();
+                return await response.Content.ReadFromJsonAsync<List<Industry>>();
             }
             return null;
         }

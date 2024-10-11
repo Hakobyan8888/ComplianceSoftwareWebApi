@@ -7,7 +7,7 @@ namespace ComplianceSoftwareWebApi.Services.Interfaces
     {
         Task<Company> AddCompanyAsync(CompanyDto registerDto, string userId);
         Task<List<string>> GetEntityTypes();
-        Task<List<IndustryType>> GetIndustries();
+        Task<List<Industry>> GetIndustries();
         Task<Company> GetCompany(string userId);
     }
 }

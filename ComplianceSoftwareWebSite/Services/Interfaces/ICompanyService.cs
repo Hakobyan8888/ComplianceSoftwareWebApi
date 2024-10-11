@@ -5,7 +5,7 @@ namespace ComplianceSoftwareWebSite.Services.Interfaces
 {
     public interface ICompanyService
     {
-        Task<List<IndustryType>> GetIndustries();
+        Task<List<Industry>> GetIndustries();
         Task<List<string>> GetEntityTypes();
         Task<bool> RegisterCompany(CompanyModel companyModel);
         Task<List<RegisterModel>> GetCompanyUsers();
