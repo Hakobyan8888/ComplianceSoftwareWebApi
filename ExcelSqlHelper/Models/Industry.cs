@@ -1,6 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ComplianceSoftwareWebApi.Models
+namespace ExcelSqlHelper.Models
 {
     public class Industry
     {
@@ -20,6 +26,6 @@ namespace ComplianceSoftwareWebApi.Models
         public string IndustryName { get; set; }
 
         // Navigation property for related licenses
-        public virtual ICollection<License> Licenses { get; set; }
+        public virtual ICollection<License> Licenses { get; set; } = new List<License>();
     }
 }
