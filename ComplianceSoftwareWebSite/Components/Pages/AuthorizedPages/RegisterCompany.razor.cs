@@ -9,11 +9,11 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
         private CompanyModel _companyDetails;
         private List<string> _entityTypes;
         private List<string> _industryNames;
-        private List<IndustryType> _industries;
+        private List<Industry> _industries;
         public RegisterCompany()
         {
             _companyDetails = new CompanyModel();
-            _industries = new List<IndustryType>();
+            _industries = new List<Industry>();
             _industryNames = new List<string>();
             _entityTypes = new List<string>();
         }
@@ -24,7 +24,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 
         private void IndustryValueChanged(string selectedItem)
         {
-            _companyDetails.BusinessIndustry = _industries.FirstOrDefault(x => x.IndustryName == selectedItem);
+            _companyDetails.BusinessIndustry = _industries.FirstOrDefault(x => x.IndustryType == selectedItem);
         }
 
         protected override async Task OnInitializedAsync()
@@ -36,7 +36,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
             }
             _entityTypes = await _companyService.GetEntityTypes();
             _industries = await _companyService.GetIndustries();
-            _industryNames = _industries.Select(x => x.IndustryName).ToList();
+            _industryNames = _industries.Select(x => x.IndustryType).ToList();
             await base.OnInitializedAsync();
         }
 

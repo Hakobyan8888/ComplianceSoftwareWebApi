@@ -5,21 +5,27 @@
         public string EntityType { get; set; } = string.Empty;
         public string StateOfFormation { get; set; } = string.Empty;
         public string BusinessName { get; set; } = string.Empty;
-        public IndustryType BusinessIndustry { get; set; }
+        public Industry BusinessIndustry { get; set; }
         public string ZipCode { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string StreetAddress { get; set; } = string.Empty;
         public DateTime? EntityFormationDate { get; set; }
     }
 
-    public class IndustryType
+    public class Industry
     {
-        public IndustryType(int industryTypeCode, string industryName)
+        public Industry(int industryTypeCode, string industryName, int industryCode, string industryType)
         {
             IndustryTypeCode = industryTypeCode;
             IndustryName = industryName;
+            IndustryCode = industryCode;
+            IndustryType = industryType;
         }
         public int IndustryTypeCode { get; set; }
         public string IndustryName { get; set; }
+
+        public int IndustryCode { get; set; }
+
+        public string IndustryType { get; set; }
     }
 }
