@@ -17,6 +17,8 @@ namespace ComplianceSoftwareWebApi.UnitOfWork
 
         public IIndustryTypeRepository IndustryTypes { get; private set; }
 
+        public IIndustryRepository Industries { get; private set; }
+        public ILicenseRepository Licenses { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -26,6 +28,8 @@ namespace ComplianceSoftwareWebApi.UnitOfWork
             UserPermissions = new UserPermissionRepository(context);
             Companies = new CompanyRepository(context);
             IndustryTypes = new IndustryTypeRepository(context);
+            Industries = new IndustryRepository(context);
+            Licenses = new LicenseRepository(context);
         }
 
         public async Task<int> CompleteAsync()
