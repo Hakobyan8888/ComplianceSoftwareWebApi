@@ -29,12 +29,10 @@
                                     Label="Business Name"
                                     ValueChanged="@(v => _companyDetails.BusinessName = v)" />
 
-                <InputSelectComponent TItem="string"
-                                      Id="businessIndustry"
-                                      Label="Business Industry"
-                                      ValueChanged="@(v => IndustryValueChanged(v))"
-                                      Options="_industryNames"
-                                      PropertyName="IndustryName" />
+                <SearchDropDown Id="businessIndustry"
+                                Label="Business Industry" 
+                                ValueChanged="@(v => IndustryValueChanged(v))"
+                                Options="_industryNames" />
 
                 <InputTextComponent Id="zipCode"
                                     Label="Zip Code"

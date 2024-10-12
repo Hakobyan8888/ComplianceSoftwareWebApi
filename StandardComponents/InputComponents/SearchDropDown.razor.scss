@@ -1,0 +1,22 @@
+﻿@import 'GeneralInput.scss';
+
+.searchable-input-dropdown {
+    position: relative;
+    max-width: 400px;
+    width: 100%;
+}
+
+.searchable-input-dropdown .form-control {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.searchable-input-dropdown .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+}
+
+.dropdown-item {
+    text-wrap: balance;
+}

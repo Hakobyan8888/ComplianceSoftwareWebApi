@@ -1,0 +1,79 @@
+﻿
+<div class="form-group form-item-group">
+    <label for="@Id">@Label</label>
+    <div class="searchable-input-dropdown">
+        <input type="text" class="form-control" placeholder="Search or select..." @bind="SelectedValue" @oninput="FilterOptions" @onclick="OpenDropdown" />
+
+        @if (isDropdownOpen && FilteredOptions.Any())
+        {
+            <div class="dropdown-menu show" style="display:block; max-height: 200px; overflow-y: auto; width: 100%;">
+                @foreach (var option in FilteredOptions)
+                {
+                    <a class="dropdown-item" @onclick="() => OnSelect(option)">@option</a>
+                }
+            </div>
+        }
+        else if (isDropdownOpen && !FilteredOptions.Any())
+        {
+            <div class="dropdown-menu show" style="display:block; width: 100%;">
+                <span class="dropdown-item disabled">No results found</span>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+    [Parameter]
+    public string Label { get; set; }
+    [Parameter]
+    public List<string> Options { get; set; } = new List<string>();
+
+    [Parameter]
+    public string SelectedValue { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    private string searchTerm = string.Empty;
+    private List<string> FilteredOptions = new List<string>();
+    private bool isDropdownOpen = false;
+
+    protected override void OnInitialized()
+    {
+        FilteredOptions = Options;  // Initialize with all options
+    }
+
+    private void OpenDropdown()
+    {
+        isDropdownOpen = true;
+    }
+
+    private void FilterOptions(ChangeEventArgs e)
+    {
+        searchTerm = e.Value.ToString();
+
+        // First, get options that start with the search term
+        var startsWithOptions = Options
+            .Where(option => option.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        // Then, get options that contain the search term but do not start with it
+        var containsOptions = Options
+            .Where(option => option.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) &&
+                             !option.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        // Concatenate both lists
+        FilteredOptions = startsWithOptions.Concat(containsOptions).ToList();
+    }
+
+    private async Task OnSelect(string option)
+    {
+        SelectedValue = option;
+        await ValueChanged.InvokeAsync(SelectedValue);
+        isDropdownOpen = false;  // Close the dropdown after selection
+    }
+}
