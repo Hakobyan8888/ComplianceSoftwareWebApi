@@ -12,5 +12,10 @@ namespace ComplianceSoftwareWebApi.Repositories
         }
 
         // Custom methods for Industry repository
+
+        public async Task<Industry> GetIndustryLicenses(int id)
+        {
+            return await _context.Industries.Include(x => x.Licenses).FirstOrDefaultAsync(i => i.Id == id);
+        }
     }
 }

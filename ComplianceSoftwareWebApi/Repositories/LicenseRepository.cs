@@ -1,7 +1,7 @@
 ﻿using ComplianceSoftwareWebApi.Data;
+using ComplianceSoftwareWebApi.Models;
 using ComplianceSoftwareWebApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace ComplianceSoftwareWebApi.Repositories
 {
@@ -9,6 +9,11 @@ namespace ComplianceSoftwareWebApi.Repositories
     {
         public LicenseRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<License>> GetLicensesByIndustryCode(int code)
+        {
+            return await _context.Licenses.Where(x => x.IndustryId == code).ToListAsync();
         }
 
         // Custom methods for License repository

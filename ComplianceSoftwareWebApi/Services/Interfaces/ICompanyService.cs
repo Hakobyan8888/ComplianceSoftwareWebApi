@@ -9,5 +9,6 @@ namespace ComplianceSoftwareWebApi.Services.Interfaces
         Task<List<string>> GetEntityTypes();
         Task<List<Industry>> GetIndustries();
         Task<Company> GetCompany(string userId);
+        Task<IEnumerable<License>> GetRequiredLicenses(string userId);
     }
 }
