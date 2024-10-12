@@ -129,8 +129,10 @@ namespace ComplianceSoftwareWebApi.Controllers
 
         public async Task<IActionResult> GetRequiredLicenses()
         {
+            var userId = _userService.GetUserIdFromClaims(User);
+            var licenses = await _companyService.GetRequiredLicenses(userId);
 
-            return Ok();
+            return Ok(JsonSerializer.Serialize(licenses));
         }
 
     }
