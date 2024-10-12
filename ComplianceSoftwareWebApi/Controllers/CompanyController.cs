@@ -127,7 +127,11 @@ namespace ComplianceSoftwareWebApi.Controllers
             }
         }
 
+        public async Task<IActionResult> GetRequiredLicenses()
+        {
 
+            return Ok();
+        }
 
     }
 }
