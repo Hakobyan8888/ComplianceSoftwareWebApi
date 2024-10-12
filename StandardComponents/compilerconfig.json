@@ -18,5 +18,9 @@
   {
     "outputFile": "InputComponents/InputTextComponent.razor.css",
     "inputFile": "InputComponents/InputTextComponent.razor.scss"
+  },
+  {
+    "outputFile": "InputComponents/SearchDropDown.razor.css",
+    "inputFile": "InputComponents/SearchDropDown.razor.scss"
   }
 ]
