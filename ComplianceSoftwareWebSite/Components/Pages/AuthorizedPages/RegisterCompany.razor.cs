@@ -24,7 +24,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 
         private void IndustryValueChanged(string selectedItem)
         {
-            _companyDetails.BusinessIndustry = _industries.FirstOrDefault(x => x.IndustryType == selectedItem);
+            _companyDetails.BusinessIndustryCode = _industries.FirstOrDefault(x => x.IndustryType == selectedItem).IndustryCode;
         }
 
         protected override async Task OnInitializedAsync()

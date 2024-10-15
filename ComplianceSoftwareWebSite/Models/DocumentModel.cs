@@ -1,6 +1,6 @@
 ﻿namespace ComplianceSoftwareWebSite.Models
 {
-    public class LicenseModel
+    public class DocumentModel
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

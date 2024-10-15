@@ -50,11 +50,11 @@ namespace ExcelSqlHelper
                     {
                         industry.Licenses.Add(new License { LicenseName = license1, IssuingAgency = issuingAgency1, IssuingAgencyLink="" });
                     }
-                    if (!string.IsNullOrEmpty(license2) && !license2.Equals("N/A") && !license2.Equals("None") && license2.Equals("No federal license is required"))
+                    if (!string.IsNullOrEmpty(license2) && !license2.Equals("N/A") && !license2.Equals("None") && !license2.Equals("No federal license is required"))
                     {
                         industry.Licenses.Add(new License { LicenseName = license2, IssuingAgency = issuingAgency2, IssuingAgencyLink = "" });
                     }
-                    if (!string.IsNullOrEmpty(license3) && !license3.Equals("N/A") && !license3.Equals("None") && license3.Equals("No federal license is required"))
+                    if (!string.IsNullOrEmpty(license3) && !license3.Equals("N/A") && !license3.Equals("None") && !license3.Equals("No federal license is required"))
                     {
                         industry.Licenses.Add(new License { LicenseName = license3, IssuingAgency = issuingAgency3, IssuingAgencyLink = "" });
                     }

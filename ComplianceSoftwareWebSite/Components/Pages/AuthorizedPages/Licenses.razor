@@ -8,31 +8,27 @@
         <table class="license-item-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Assigned To</th>
-                    <th>State</th>
-                    <th>Area Path</th>
+                    <th>License Name</th>
+                    <th>Issuing Agency</th>
+                    <th>Issuing Agency Link</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in LicenseModels)
                 {
                     <tr>
-                        <td>@item.Id</td>
                         <td>
                             @* <span class="license-item-icon">@item.Icon</span> *@
-                            @item.Title
+                            @item.LicenseName
                         </td>
                         <td>
                             @* <span class="assigned-to-icon"><img src="@item.AssignedToIcon" alt="icon" /></span> *@
-                            @item.UploadedByEmail
+                            @item.IssuingAgency
                         </td>
                         <td>
                             <span class="state-indicator"></span>
-                            @item.Content
+                            @item.IssuingAgencyLink
                         </td>
-                        <td>@item.CreatedDate</td>
                     </tr>
                 }
             </tbody>

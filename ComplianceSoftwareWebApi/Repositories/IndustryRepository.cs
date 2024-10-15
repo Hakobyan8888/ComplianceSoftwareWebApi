@@ -15,7 +15,7 @@ namespace ComplianceSoftwareWebApi.Repositories
 
         public async Task<Industry> GetIndustryLicenses(int id)
         {
-            return await _context.Industries.Include(x => x.Licenses).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.Industries.FirstOrDefaultAsync(x => x.IndustryCode == id);//Include(x => x.Licenses).FirstOrDefaultAsync(i => i.IndustryCode == id);
         }
     }
 }

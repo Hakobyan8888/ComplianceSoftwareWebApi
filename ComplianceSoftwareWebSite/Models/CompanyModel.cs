@@ -5,7 +5,7 @@
         public string EntityType { get; set; } = string.Empty;
         public string StateOfFormation { get; set; } = string.Empty;
         public string BusinessName { get; set; } = string.Empty;
-        public Industry BusinessIndustry { get; set; }
+        public int BusinessIndustryCode { get; set; }
         public string ZipCode { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string StreetAddress { get; set; } = string.Empty;

@@ -1,33 +1,25 @@
 ﻿using ComplianceSoftwareWebSite.Models;
+using ComplianceSoftwareWebSite.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 {
     public partial class Licenses
     {
+        [Inject]
+        public ILicenseService LicenseService { get; set; }
+
         [Parameter]
-        public List<LicenseModel> LicenseModels { get; set; } = new List<LicenseModel>
-        {
-            new LicenseModel()
-            {
-                Id = Guid.NewGuid(),
-                Title = "My New Bug",
-                FileName = "FileName",
-                CreatedDate = new DateTime(),
-            },
-            new LicenseModel()
-            {
-                Id = Guid.NewGuid(),
-                Title = "My New Bug",
-                FileName = "FileName",
-                CreatedDate = new DateTime(),
-            },
-        };
+        public List<License> LicenseModels { get; set; } = new List<License>();
 
-
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
-            return base.OnInitializedAsync();
+            LicenseModels = await GetRequiredLicenses();
+        }
+
+        private async Task<List<License>> GetRequiredLicenses()
+        {
+            return await LicenseService.GetRequiredLicenses();
         }
     }
 }

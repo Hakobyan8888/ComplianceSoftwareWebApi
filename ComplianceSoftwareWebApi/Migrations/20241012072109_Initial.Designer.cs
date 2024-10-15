@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ComplianceSoftwareWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240924225455_undochanges")]
-    partial class undochanges
+    [Migration("20241012072109_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,15 +33,30 @@ namespace ComplianceSoftwareWebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<int>("BusinessIndustryCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BusinessName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Industry")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StateOfFormation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -153,6 +168,89 @@ namespace ComplianceSoftwareWebApi.Migrations
                     b.ToTable("DocumentVersion");
                 });
 
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Industry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IndustryCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IndustryName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("IndustryType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SectorCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Industries");
+                });
+
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.IndustryType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IndustryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IndustryTypeCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndustryTypes");
+                });
+
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.License", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IndustryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IssuingAgency")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("IssuingAgencyLink")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LicenseName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IndustryId");
+
+                    b.ToTable("Licenses");
+                });
+
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Permission", b =>
                 {
                     b.Property<int>("Id")
@@ -161,7 +259,11 @@ namespace ComplianceSoftwareWebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
+                    b.Property<string>("PermissionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PermissionType")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -417,6 +519,17 @@ namespace ComplianceSoftwareWebApi.Migrations
                         .HasForeignKey("DocumentId");
                 });
 
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.License", b =>
+                {
+                    b.HasOne("ComplianceSoftwareWebApi.Models.Industry", "Industry")
+                        .WithMany("Licenses")
+                        .HasForeignKey("IndustryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Industry");
+                });
+
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.User", b =>
                 {
                     b.HasOne("ComplianceSoftwareWebApi.Models.Company", "Company")
@@ -506,6 +619,11 @@ namespace ComplianceSoftwareWebApi.Migrations
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Document", b =>
                 {
                     b.Navigation("Versions");
+                });
+
+            modelBuilder.Entity("ComplianceSoftwareWebApi.Models.Industry", b =>
+                {
+                    b.Navigation("Licenses");
                 });
 
             modelBuilder.Entity("ComplianceSoftwareWebApi.Models.User", b =>

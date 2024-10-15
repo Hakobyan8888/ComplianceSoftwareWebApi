@@ -31,9 +31,13 @@ namespace ComplianceSoftwareWebApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Industry = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    EntityType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StateOfFormation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BusinessName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BusinessIndustryCode = table.Column<int>(type: "int", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StreetAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,12 +61,43 @@ namespace ComplianceSoftwareWebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Industries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IndustryType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IndustryCode = table.Column<int>(type: "int", nullable: false),
+                    SectorCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IndustryName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Industries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IndustryTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IndustryTypeCode = table.Column<int>(type: "int", nullable: false),
+                    IndustryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IndustryTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Permissions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(type: "int", nullable: false)
+                    PermissionType = table.Column<int>(type: "int", nullable: false),
+                    PermissionName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -143,6 +178,28 @@ namespace ComplianceSoftwareWebApi.Migrations
                         name: "FK_Documents_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Licenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LicenseName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IssuingAgency = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IssuingAgencyLink = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    IndustryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Licenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Licenses_Industries_IndustryId",
+                        column: x => x.IndustryId,
+                        principalTable: "Industries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -335,6 +392,11 @@ namespace ComplianceSoftwareWebApi.Migrations
                 column: "DocumentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Licenses_IndustryId",
+                table: "Licenses",
+                column: "IndustryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserPermissions_PermissionId",
                 table: "UserPermissions",
                 column: "PermissionId");
@@ -370,6 +432,12 @@ namespace ComplianceSoftwareWebApi.Migrations
                 name: "DocumentVersion");
 
             migrationBuilder.DropTable(
+                name: "IndustryTypes");
+
+            migrationBuilder.DropTable(
+                name: "Licenses");
+
+            migrationBuilder.DropTable(
                 name: "UserPermissions");
 
             migrationBuilder.DropTable(
@@ -377,6 +445,9 @@ namespace ComplianceSoftwareWebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Industries");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

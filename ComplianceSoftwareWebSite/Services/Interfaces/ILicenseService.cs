@@ -4,6 +4,7 @@ namespace ComplianceSoftwareWebSite.Services.Interfaces
 {
     public interface ILicenseService
     {
-        Task<List<LicenseModel>> GetWorkItemsAsync();
+        Task<List<DocumentModel>> GetWorkItemsAsync();
+        Task<List<License>> GetRequiredLicenses();
     }
 }

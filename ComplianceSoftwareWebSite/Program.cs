@@ -49,12 +49,16 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddHttpClient<IAuthService, AuthService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7216/");
-}).AddHttpMessageHandler<CustomHttpHandlerService>(); ;
+}).AddHttpMessageHandler<CustomHttpHandlerService>();
 builder.Services.AddHttpClient<ICompanyService, CompanyService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:7216/");
 }).AddHttpMessageHandler<CustomHttpHandlerService>();
-builder.Services.AddScoped<ILicenseService, LicenseService>();
+
+builder.Services.AddHttpClient<ILicenseService, LicenseService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7216/");
+}).AddHttpMessageHandler<CustomHttpHandlerService>();
 
 var app = builder.Build();
 

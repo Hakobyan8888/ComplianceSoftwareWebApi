@@ -154,7 +154,7 @@ async Task InitializePermissions(IServiceProvider serviceProvider)
     {
         if (!permissionsDB.Any(x => (int)x.PermissionType == permission))
         {
-            await unitOfWork.Permissions.AddAsync(new Permission() { PermissionType = (PermissionTypes)permission });
+            await unitOfWork.Permissions.AddAsync(new Permission() { PermissionType = (PermissionTypes)permission, PermissionName = permission.ToString() });
         }
     }
     await unitOfWork.CompleteAsync();

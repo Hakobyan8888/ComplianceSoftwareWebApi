@@ -21,7 +21,7 @@ namespace ComplianceSoftwareWebApi.Services
                 {
                     StreetAddress = registerDto.StreetAddress,
                     BusinessName = registerDto.BusinessName,
-                    BusinessIndustryCode = registerDto.BusinessIndustry.IndustryTypeCode,
+                    BusinessIndustryCode = registerDto.BusinessIndustryCode,
                     City = registerDto.City,
                     EntityType = registerDto.EntityType,
                     StateOfFormation = registerDto.StateOfFormation,
@@ -142,8 +142,8 @@ namespace ComplianceSoftwareWebApi.Services
             {
                 throw new ArgumentException("Company not found");
             }
-            //var industry = await _unitOfWork.Industries.GetIndustryLicenses(company.BusinessIndustryCode);
-            var licenses = await _unitOfWork.Licenses.GetLicensesByIndustryCode(company.BusinessIndustryCode);
+            var industry = await _unitOfWork.Industries.GetIndustryLicenses(company.BusinessIndustryCode);
+            var licenses = await _unitOfWork.Licenses.GetLicensesByIndustryCode(industry.Id);
             return licenses;
         }
     }

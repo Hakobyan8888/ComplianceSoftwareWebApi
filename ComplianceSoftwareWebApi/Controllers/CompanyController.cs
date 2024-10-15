@@ -1,5 +1,4 @@
 ﻿using ComplianceSoftwareWebApi.DTOs;
-using ComplianceSoftwareWebApi.Models;
 using ComplianceSoftwareWebApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -127,12 +126,20 @@ namespace ComplianceSoftwareWebApi.Controllers
             }
         }
 
+
+        [Authorize(Roles = "Owner, Manager")]
+        [HttpGet("required-licenses")]
         public async Task<IActionResult> GetRequiredLicenses()
         {
             var userId = _userService.GetUserIdFromClaims(User);
-            var licenses = await _companyService.GetRequiredLicenses(userId);
-
-            return Ok(JsonSerializer.Serialize(licenses));
+            var licenses = (await _companyService.GetRequiredLicenses(userId)).Select(i => new LicenseDto()
+            {
+                IssuingAgency = i.IssuingAgency,
+                IssuingAgencyLink = i.IssuingAgencyLink,
+                LicenseName = i.LicenseName,
+            });
+            var json = JsonSerializer.Serialize(licenses);
+            return Ok(json);
         }
 
     }

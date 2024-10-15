@@ -42,6 +42,11 @@ namespace ComplianceSoftwareWebApi.Data
             .HasForeignKey(u => u.CompanyId)
             .HasPrincipalKey(c => c.Id);
 
+            modelBuilder.Entity<Industry>()
+                .HasMany(i => i.Licenses)
+                .WithOne(l => l.Industry)
+                .HasForeignKey(l => l.IndustryId);
+
             base.OnModelCreating(modelBuilder);
         }
     }

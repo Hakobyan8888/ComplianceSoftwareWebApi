@@ -7,7 +7,7 @@ namespace ComplianceSoftwareWebApi.DTOs
         public string EntityType { get; set; }
         public string StateOfFormation { get; set; }
         public string BusinessName { get; set; }
-        public IndustryType BusinessIndustry { get; set; }
+        public int BusinessIndustryCode { get; set; }
         public string ZipCode { get; set; }
         public string City { get; set; }
         public string StreetAddress { get; set; }
