@@ -135,7 +135,7 @@ namespace ComplianceSoftwareWebApi.Services
             });
         }
 
-        public async Task<IEnumerable<License>> GetRequiredLicenses(string userId)
+        public async Task<IEnumerable<License>> GetRequiredFederalLicenses(string userId)
         {
             var company = await GetCompany(userId);
             if (company == null)
@@ -144,6 +144,18 @@ namespace ComplianceSoftwareWebApi.Services
             }
             var industry = await _unitOfWork.Industries.GetIndustryLicenses(company.BusinessIndustryCode);
             var licenses = await _unitOfWork.Licenses.GetLicensesByIndustryCode(industry.Id);
+            return licenses;
+        }
+
+        public async Task<IEnumerable<License>> GetRequiredStateLicenses(string userId)
+        {
+            var company = await GetCompany(userId);
+            if (company == null)
+            {
+                throw new ArgumentException("Company not found");
+            }
+            var industry = await _unitOfWork.Industries.GetIndustryLicenses(company.BusinessIndustryCode);
+            var licenses = await _unitOfWork.Licenses.GetLicensesByIndustryCodeAndState(industry.Id, company.StateOfFormation);
             return licenses;
         }
     }

@@ -23,6 +23,7 @@ namespace ExcelSqlHelper.Models
         [MaxLength(500)]
         public string IssuingAgencyLink { get; set; }
 
+        public string StateCode { get; set; }
         // Foreign key reference to Industry
         public int IndustryId { get; set; }
         public virtual Industry Industry { get; set; }
