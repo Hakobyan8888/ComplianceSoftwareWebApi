@@ -7,5 +7,6 @@
         public string IssuingAgency { get; set; }
 
         public string IssuingAgencyLink { get; set; }
+        public string StateCode { get; set; }
     }
 }

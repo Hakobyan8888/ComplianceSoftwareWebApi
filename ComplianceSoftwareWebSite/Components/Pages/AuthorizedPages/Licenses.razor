@@ -11,6 +11,7 @@
                     <th>License Name</th>
                     <th>Issuing Agency</th>
                     <th>Issuing Agency Link</th>
+                    <th>License Type</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,8 +27,14 @@
                             @item.IssuingAgency
                         </td>
                         <td>
-                            <span class="state-indicator"></span>
-                            @item.IssuingAgencyLink
+                            <a href="@item.IssuingAgencyLink" target="_blank">@item.IssuingAgencyLink</a>
+                        </td>
+                        <td>
+                            @if(string.IsNullOrEmpty(item.StateCode))
+                            {
+                                <p>Federal</p>
+                            }
+                            @item.StateCode
                         </td>
                     </tr>
                 }

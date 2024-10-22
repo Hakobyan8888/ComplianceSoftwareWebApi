@@ -13,7 +13,12 @@ namespace ComplianceSoftwareWebApi.Repositories
 
         public async Task<IEnumerable<License>> GetLicensesByIndustryCode(int code)
         {
-            return await _context.Licenses.Where(x => x.IndustryId == code).ToListAsync();
+            return await _context.Licenses.Where(x => x.IndustryId == code && string.IsNullOrEmpty(x.StateCode)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<License>> GetLicensesByIndustryCodeAndState(int code, string stateCode)
+        {
+            return await _context.Licenses.Where(x => x.IndustryId == code && x.StateCode.ToLower() == stateCode.ToLower()).ToListAsync();
         }
 
         // Custom methods for License repository
