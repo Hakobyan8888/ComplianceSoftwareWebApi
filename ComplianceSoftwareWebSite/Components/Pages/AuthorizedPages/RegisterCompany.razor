@@ -21,16 +21,14 @@
                                       Options="_entityTypes"
                                       ValueChanged="@(v => _companyDetails.EntityType = v)" />
 
-                <InputTextComponent Id="stateOfFormation"
-                                    Label="State of Formation"
-                                    ValueChanged="@(v => _companyDetails.StateOfFormation = v)" />
+
 
                 <InputTextComponent Id="businessName"
                                     Label="Business Name"
                                     ValueChanged="@(v => _companyDetails.BusinessName = v)" />
 
                 <SearchDropDown Id="businessIndustry"
-                                Label="Business Industry" 
+                                Label="Business Industry"
                                 ValueChanged="@(v => IndustryValueChanged(v))"
                                 Options="_industryNames" />
 
@@ -38,9 +36,23 @@
                                     Label="Zip Code"
                                     ValueChanged="@(v => _companyDetails.ZipCode = v)" />
 
-                <InputTextComponent Id="city"
-                                    Label="City"
-                                    ValueChanged="@(v => _companyDetails.City = v)" />
+                <SearchDropDown Id="stateOfFormation"
+                                Label="State of Formation"
+                                ValueChanged="@(v => StateValueChanged(v))"
+                                Options="_states?.Keys.ToList()" />
+
+
+                <SearchDropDown Id="countyOfFormation"
+                                Label="County of Formation"
+                                ValueChanged="@(v => CountyValueChanged(v))"
+                                Options="_counties?.Keys.ToList()"
+                                IsDisabled="_counties == null || !_counties.Any()" />
+
+                <SearchDropDown Id="cityOfFormation"
+                                Label="City of Formation"
+                                ValueChanged="@(v => CityValueChanged(v))"
+                                Options="_cities?.Keys.ToList()"
+                                IsDisabled="_cities == null || !_cities.Any()" />
 
                 <InputTextComponent Id="streetAddress"
                                     Label="Address"
@@ -49,8 +61,8 @@
                 <InputDateComponent Id="entityFormationDate"
                                     Label="Entity Formation Date"
                                     ValueChanged="@(v => _companyDetails.EntityFormationDate = v)" />
-                                    
-            <PrimaryButtonComponent ButtonType="submit">Register Company</PrimaryButtonComponent>
+
+                <PrimaryButtonComponent ButtonType="submit">Register Company</PrimaryButtonComponent>
             </div>
         </EditForm>
     </div>
