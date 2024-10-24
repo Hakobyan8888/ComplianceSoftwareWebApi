@@ -4,6 +4,7 @@
     {
         public string EntityType { get; set; } = string.Empty;
         public string StateOfFormation { get; set; } = string.Empty;
+        public string CountyOfFormation { get; set; } = string.Empty;
         public string BusinessName { get; set; } = string.Empty;
         public int BusinessIndustryCode { get; set; }
         public string ZipCode { get; set; } = string.Empty;

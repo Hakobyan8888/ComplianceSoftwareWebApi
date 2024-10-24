@@ -1,3 +1,4 @@
+using ComplianceSoftwareWebSite.Api_Clients;
 using ComplianceSoftwareWebSite.Components;
 using ComplianceSoftwareWebSite.Models.Auth;
 using ComplianceSoftwareWebSite.Services;
@@ -44,6 +45,11 @@ builder.Services.AddScoped(s => (AuthStateProviderService)s.GetRequiredService<A
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorizationCore();
+
+builder.Services.AddHttpClient<CensusApiClient>(client =>
+{
+    client.BaseAddress = new Uri("https://api.census.gov/data/2023/geoinfo");
+});
 
 // Services
 builder.Services.AddHttpClient<IAuthService, AuthService>(client =>

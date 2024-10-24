@@ -2,9 +2,9 @@
 <div class="form-group form-item-group">
     <label for="@Id">@Label</label>
     <div class="searchable-input-dropdown">
-        <input type="text" class="form-control" placeholder="Search or select..." @bind="SelectedValue" @oninput="FilterOptions" @onclick="OpenDropdown" />
+        <input type="text" class="form-control" placeholder="Search or select..." @bind="SelectedValue" @oninput="FilterOptions" @onclick="OpenDropdown" disabled="@IsDisabled" />
 
-        @if (isDropdownOpen && FilteredOptions.Any())
+        @if (isDropdownOpen && FilteredOptions != null && FilteredOptions.Any())
         {
             <div class="dropdown-menu show" style="display:block; max-height: 200px; overflow-y: auto; width: 100%;">
                 @foreach (var option in FilteredOptions)
@@ -13,7 +13,7 @@
                 }
             </div>
         }
-        else if (isDropdownOpen && !FilteredOptions.Any())
+        else if (isDropdownOpen && FilteredOptions != null && !FilteredOptions.Any())
         {
             <div class="dropdown-menu show" style="display:block; width: 100%;">
                 <span class="dropdown-item disabled">No results found</span>
@@ -36,6 +36,9 @@
 
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
 
     private string searchTerm = string.Empty;
     private List<string> FilteredOptions = new List<string>();

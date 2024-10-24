@@ -1,6 +1,8 @@
+using ComplianceSoftwareWebSite.Api_Clients;
 using ComplianceSoftwareWebSite.Models;
 using ComplianceSoftwareWebSite.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Specialized;
 
 namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
 {
@@ -10,6 +12,14 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
         private List<string> _entityTypes;
         private List<string> _industryNames;
         private List<Industry> _industries;
+
+        private Dictionary<string, string> _states;
+        private Dictionary<string, string> _counties;
+        private Dictionary<string, string> _cities;
+
+        [Inject]
+        private CensusApiClient _censusApiClient { get; set; }
+
         public RegisterCompany()
         {
             _companyDetails = new CompanyModel();
@@ -27,6 +37,25 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
             _companyDetails.BusinessIndustryCode = _industries.FirstOrDefault(x => x.IndustryType == selectedItem).IndustryCode;
         }
 
+        private async void StateValueChanged(string state)
+        {
+            _companyDetails.StateOfFormation = state;
+            _counties = await _censusApiClient.GetCountiesByStateFips(_states[state]);
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private async void CountyValueChanged(string county)
+        {
+            _companyDetails.CountyOfFormation = county;
+            _cities = await _censusApiClient.GetCitiesByStateAndCountyFips(_states[_companyDetails.StateOfFormation], _counties[county]);
+            await InvokeAsync(StateHasChanged);
+        }
+
+        private void CityValueChanged(string city)
+        {
+            _companyDetails.City = city;
+        }
+
         protected override async Task OnInitializedAsync()
         {
             var company = await _companyService.GetCompany();
@@ -37,6 +66,7 @@ namespace ComplianceSoftwareWebSite.Components.Pages.AuthorizedPages
             _entityTypes = await _companyService.GetEntityTypes();
             _industries = await _companyService.GetIndustries();
             _industryNames = _industries.Select(x => x.IndustryType).ToList();
+            _states = await _censusApiClient.GetStates();
             await base.OnInitializedAsync();
         }
 
